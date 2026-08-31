@@ -14,11 +14,70 @@ collections:
     create: true
     slug: "{{slug}}"
     format: yaml-frontmatter
+
     fields:
-      - label: Title
+
+      - label: Page Title
         name: title
         widget: string
 
-      - label: Content
-        name: body
-        widget: markdown
+      - label: Hero Eyebrow
+        name: hero_eyebrow
+        widget: string
+
+      - label: Hero Title
+        name: hero_title
+        widget: string
+
+      - label: Hero Title Highlight
+        name: hero_title_highlight
+        widget: string
+
+      - label: Hero Description
+        name: hero_description
+        widget: text
+
+      - label: Intro Title
+        name: intro_title
+        widget: string
+
+      - label: Intro Highlight
+        name: intro_highlight
+        widget: string
+
+      - label: Intro Description
+        name: intro_description
+        widget: text
+
+      - label: Gallery Title
+        name: gallery_title
+        widget: string
+
+      - label: Services Title
+        name: services_title
+        widget: string
+
+      - label: About Title
+        name: about_title
+        widget: string
+
+      - label: About Description
+        name: about_description
+        widget: text
+
+      - label: Contact Eyebrow
+        name: contact_eyebrow
+        widget: string
+
+      - label: Contact Title
+        name: contact_title
+        widget: string
+
+      - label: Contact Description
+        name: contact_description
+        widget: text
+
+      - label: Contact Email
+        name: contact_email
+        widget: string
+        type: email
