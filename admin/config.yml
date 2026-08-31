@@ -1,0 +1,5 @@
+backend:
+  name: github
+  repo: premsnaps/premsnaps.github.io
+  branch: main
+  base_url: https://sveltia-cms-auth.premsnaps143.workers.dev
