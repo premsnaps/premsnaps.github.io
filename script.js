@@ -8,7 +8,7 @@ if (year) {
 
 // Mobile menu
 const menu = document.querySelector(".menu");
-const nav = document.querySelector("nav");
+const nav = document.querySelector(".nav nav");
 
 if (menu && nav) {
   menu.addEventListener("click", () => {
@@ -19,7 +19,7 @@ if (menu && nav) {
       nav.style.top = "70px";
       nav.style.left = "0";
       nav.style.right = "0";
-      nav.style.padding = "22px";
+      nav.style.padding = "22px 7vw";
       nav.style.background = "#f5f2ed";
       nav.style.flexDirection = "column";
       nav.style.alignItems = "flex-start";
@@ -36,19 +36,13 @@ async function loadCMSContent() {
 
   try {
 
-    // Load directly from GitHub.
-    // This avoids problems caused by the custom domain cache.
     const cmsURL =
       "https://raw.githubusercontent.com/premsnaps/premsnaps.github.io/main/content/pages/home.md?cb=" +
       Date.now();
 
-    const cmsURL =
-  "https://raw.githubusercontent.com/premsnaps/premsnaps.github.io/main/content/pages/home.md?cb=" +
-  Date.now();
-
-const response = await fetch(cmsURL, {
-  cache: "no-store"
-});
+    const response = await fetch(cmsURL, {
+      cache: "no-store"
+    });
 
     if (!response.ok) {
       throw new Error("CMS file could not be loaded");
@@ -58,9 +52,9 @@ const response = await fetch(cmsURL, {
 
     console.log("PREMSNAPS CMS file loaded.");
 
-    // ----------------------------------------------
+    // -----------------------------------------------
     // Read YAML front matter
-    // ----------------------------------------------
+    // -----------------------------------------------
 
     const match = markdown.match(/^---\s*([\s\S]*?)\s*---/);
 
@@ -99,9 +93,9 @@ const response = await fetch(cmsURL, {
     });
 
 
-    // ----------------------------------------------
+    // -----------------------------------------------
     // Helper
-    // ----------------------------------------------
+    // -----------------------------------------------
 
     function setText(selector, value) {
 
@@ -112,85 +106,153 @@ const response = await fetch(cmsURL, {
       if (element) {
         element.textContent = value;
       }
+
     }
 
 
-    // ----------------------------------------------
+    // -----------------------------------------------
     // HERO
-    // ----------------------------------------------
+    // -----------------------------------------------
 
-    setText(".hero-eyebrow", data.hero_eyebrow);
-    setText(".hero-title", data.hero_title);
-    setText(".hero-title-highlight", data.hero_title_highlight);
-    setText(".hero-copy", data.hero_description);
+    setText(
+      ".hero .eyebrow",
+      data.hero_eyebrow
+    );
+
+    const heroTitle = document.querySelector(".hero-content h1");
+
+    if (heroTitle) {
+
+      const title = data.hero_title || "";
+      const highlight = data.hero_title_highlight || "";
+
+      heroTitle.innerHTML =
+        escapeHTML(title) +
+        "<br><em>" +
+        escapeHTML(highlight) +
+        "</em>";
+
+    }
+
+    setText(
+      ".hero-copy",
+      data.hero_description
+    );
 
 
-    // ----------------------------------------------
+    // -----------------------------------------------
     // INTRO
-    // ----------------------------------------------
+    // -----------------------------------------------
 
-    setText(".intro-section h2", data.intro_title);
-    setText(".intro-section p", data.intro_description);
+    const introTitle = document.querySelector(".intro h2");
+
+    if (introTitle && data.intro_title && data.intro_highlight) {
+
+      introTitle.innerHTML =
+        escapeHTML(data.intro_title) +
+        " <em>" +
+        escapeHTML(data.intro_highlight) +
+        "</em>";
+
+    }
+
+    setText(
+      ".intro p",
+      data.intro_description
+    );
 
 
-    // ----------------------------------------------
+    // -----------------------------------------------
     // GALLERY
-    // ----------------------------------------------
+    // -----------------------------------------------
 
-    setText("#work .section-label", data.gallery_title);
+    setText(
+      ".gallery .section-label",
+      data.gallery_title
+    );
 
 
-    // ----------------------------------------------
+    // -----------------------------------------------
     // SERVICES
-    // ----------------------------------------------
+    // -----------------------------------------------
 
-    setText("#services .section-label", data.services_title);
+    setText(
+      ".services .section-label",
+      data.services_title
+    );
 
 
-    // ----------------------------------------------
+    // -----------------------------------------------
     // ABOUT
-    // ----------------------------------------------
+    // -----------------------------------------------
 
-    setText("#about .section-label", data.about_title);
-    setText("#about .about-copy p", data.about_description);
+    setText(
+      ".about .section-label",
+      data.about_title
+    );
+
+    setText(
+      ".about .about-copy p",
+      data.about_description
+    );
 
 
-    // ----------------------------------------------
+    // -----------------------------------------------
     // CONTACT
-    // ----------------------------------------------
+    // -----------------------------------------------
 
-    setText("#contact .eyebrow", data.contact_eyebrow);
-    setText("#contact h2", data.contact_title);
-    setText("#contact .contact-copy p", data.contact_description);
+    setText(
+      ".contact .eyebrow",
+      data.contact_eyebrow
+    );
+
+    setText(
+      ".contact h2",
+      data.contact_title
+    );
+
+    setText(
+      ".contact-inner > p:not(.eyebrow):not(.small-note)",
+      data.contact_description
+    );
 
 
-    // Contact email
+    // -----------------------------------------------
+    // CONTACT EMAIL
+    // -----------------------------------------------
+
     if (data.contact_email) {
 
-      const emailLinks = document.querySelectorAll(
-        '#contact a[href^="mailto:"]'
-      );
+      const emailLinks =
+        document.querySelectorAll(
+          'a[href^="mailto:"]'
+        );
 
       emailLinks.forEach(link => {
 
-        link.href = "mailto:" + data.contact_email;
+        link.href =
+          "mailto:" + data.contact_email;
 
-        // Only replace visible email text,
-        // not the button label.
         if (
           link.textContent.includes("@") ||
-          link.textContent.includes("hello")
+          link.textContent.toLowerCase().includes("hello")
         ) {
-          link.textContent = data.contact_email;
+          link.textContent =
+            data.contact_email;
         }
 
       });
+
     }
 
 
-    console.log("PREMSNAPS CMS content applied successfully.");
+    console.log(
+      "PREMSNAPS CMS content applied successfully."
+    );
 
-  } catch (error) {
+  }
+
+  catch (error) {
 
     console.error(
       "PREMSNAPS CMS content could not be loaded:",
@@ -198,6 +260,23 @@ const response = await fetch(cmsURL, {
     );
 
   }
+
+}
+
+
+// -----------------------------------------------
+// HTML escape helper
+// -----------------------------------------------
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
 }
 
 
