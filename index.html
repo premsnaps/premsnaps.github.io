@@ -1,827 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <title>PREMSNAPS. — Wedding Photography & Films</title>
+  <meta name="description" content="PREMSNAPS. Wedding Photography & Films — cinematic wedding stories crafted with emotion.">
 
-  <title>PREMSNAPS. | Wedding Photography & Films</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 
-  <meta
-    name="description"
-    content="PREMSNAPS. — Wedding photography and cinematic films crafted with emotion, elegance and timeless storytelling."
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
-    rel="stylesheet"
-  >
-
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
-
+  <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     PRELOADER
-===================================================== -->
-
-<div class="preloader" id="preloader">
-
-  <div class="preloader-logo">
-    PREMSNAPS.
+  <!-- PAGE LOADER -->
+  <div class="page-loader">
+    <div class="loader-logo">PREMSNAPS.</div>
   </div>
 
-  <div class="preloader-line">
-    <span></span>
-  </div>
+  <!-- NAVIGATION -->
+  <header class="site-header">
+    <a href="index.html" class="logo">PREMSNAPS<span>.</span></a>
 
-  <div class="preloader-number">
-    00
-  </div>
+    <nav class="desktop-nav">
+      <a href="index.html" class="active">HOME</a>
+      <a href="about.html">ABOUT</a>
+      <a href="photos.html">PHOTOS</a>
+      <a href="films.html">FILMS</a>
+      <a href="services.html">SERVICES</a>
+      <a href="quote.html">QUOTE</a>
+    </nav>
 
-</div>
-
-
-
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
-
-<header class="site-header">
-
-  <a
-    href="index.html"
-    class="logo"
-  >
-    PREMSNAPS.
-  </a>
-
-
-  <nav class="main-nav">
-
-    <a href="about.html">
-      ABOUT
+    <a href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20would%20like%20to%20know%20about%20your%20wedding%20packages." class="nav-contact" target="_blank">
+      LET'S TALK
     </a>
 
-    <a href="photos.html">
-      PHOTOS
-    </a>
-
-    <a href="films.html">
-      FILMS
-    </a>
-
-    <a href="services.html">
-      SERVICES
-    </a>
-
-    <a href="quote.html">
-      QUOTE
-    </a>
-
-  </nav>
-
-
-  <a
-    href="contact.html"
-    class="nav-contact"
-  >
-    CHECK YOUR DATE
-  </a>
-
-
-  <button
-    class="mobile-menu"
-    id="mobileMenu"
-    aria-label="Open menu"
-  >
-
-    <span></span>
-    <span></span>
-
-  </button>
-
-</header>
-
-
-
-<!-- =====================================================
-     MOBILE MENU
-===================================================== -->
-
-<div
-  class="mobile-navigation"
-  id="mobileNavigation"
->
-
-  <div class="mobile-navigation-inner">
-
-    <a href="index.html">
-      HOME
-    </a>
-
-    <a href="about.html">
-      ABOUT
-    </a>
-
-    <a href="photos.html">
-      PHOTOS
-    </a>
-
-    <a href="films.html">
-      FILMS
-    </a>
-
-    <a href="services.html">
-      SERVICES
-    </a>
-
-    <a href="quote.html">
-      BUILD YOUR QUOTE
-    </a>
-
-    <a href="contact.html">
-      CONTACT
-    </a>
-
-  </div>
-
-</div>
-
-
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
-<main>
-
-
-<section class="hero">
-
-  <div
-    class="hero-image"
-    id="heroImage"
-  ></div>
-
-
-  <div class="hero-overlay"></div>
-
-
-  <div class="hero-content">
-
-    <div class="hero-eyebrow reveal-text">
-      WEDDING PHOTOGRAPHY · FILMS
-    </div>
-
-
-    <h1 class="hero-title">
-
-      <span class="line">
-        Where your
-      </span>
-
-      <span class="line">
-        <em>story</em>
-      </span>
-
-      <span class="line">
-        becomes art.
-      </span>
-
-    </h1>
-
-
-    <p class="hero-description reveal-text">
-
-      Honest photographs.
-      Cinematic films.
-      The little moments you'll
-      want to remember forever.
-
-    </p>
-
-
-    <div class="hero-actions reveal-text">
-
-      <a
-        href="photos.html"
-        class="button button-white"
-      >
-        EXPLORE OUR WORK
-        <span>↗</span>
-      </a>
-
-
-      <a
-        href="contact.html"
-        class="text-button"
-      >
-        CHECK YOUR DATE
-        <span>→</span>
-      </a>
-
-    </div>
-
-  </div>
-
-
-  <div class="hero-scroll">
-
-    <span>
-      SCROLL TO EXPLORE
-    </span>
-
-    <div class="scroll-line"></div>
-
-  </div>
-
-
-  <div class="hero-index">
-    01 / 05
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     INTRO
-===================================================== -->
-
-<section class="intro section">
-
-  <div class="section-number">
-    01 — THE EXPERIENCE
-  </div>
-
-
-  <div class="intro-content">
-
-    <h2 class="display-title">
-
-      Beautifully
-      <em>real.</em>
-
-      <br>
-
-      Forever
-      <em>yours.</em>
-
-    </h2>
-
-
-    <div class="intro-copy">
-
-      <p>
-
-        We don't just photograph weddings.
-        We preserve the feeling of them.
-
-      </p>
-
-      <p>
-
-        The nervous smiles.
-        The loud laughter.
-        The quiet glances.
-        The people who mean everything.
-
-      </p>
-
-
-      <a
-        href="about.html"
-        class="underlined-link"
-      >
-        OUR APPROACH
-        <span>↗</span>
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     FEATURED STORY
-===================================================== -->
-
-<section class="featured-story">
-
-  <div class="story-image story-image-main">
-
-    <div
-      class="drive-image"
-      data-drive-type="highlight"
-    ></div>
-
-  </div>
-
-
-  <div class="story-caption">
-
-    <div>
-      SELECTED STORY
-    </div>
-
-    <h3>
-      Moments
-      <em>in between.</em>
-    </h3>
-
-  </div>
-
-
-  <div class="story-small-image">
-
-    <div
-      class="drive-image"
-      data-drive-type="highlight"
-    ></div>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     SELECTED WORK
-===================================================== -->
-
-<section class="work section">
-
-  <div class="section-header">
-
-    <div class="section-number">
-      02 — SELECTED STORIES
-    </div>
-
-
-    <h2 class="display-title">
-
-      Frames with
-      <em>feeling.</em>
-
-    </h2>
-
+    <button class="menu-button" aria-label="Open menu">
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu">
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="photos.html">PHOTOS</a>
+    <a href="films.html">FILMS</a>
+    <a href="services.html">SERVICES</a>
+    <a href="quote.html">QUOTE</a>
 
     <a
-      href="photos.html"
-      class="underlined-link"
-    >
-      VIEW ALL PHOTOGRAPHS
-      <span>↗</span>
+      href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20would%20like%20to%20know%20about%20your%20wedding%20packages."
+      target="_blank"
+      class="mobile-whatsapp">
+      WHATSAPP →
     </a>
-
   </div>
 
-
-  <div
-    class="home-gallery"
-    id="homeGallery"
-  >
-
-    <div class="gallery-loading">
-      LOADING STORIES...
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     FILMS
-===================================================== -->
-
-<section class="films-preview section">
-
-  <div class="section-number">
-    03 — CINEMATIC FILMS
-  </div>
-
-
-  <div class="films-heading">
-
-    <h2 class="display-title">
-
-      Stories that
-      <br>
-      <em>move.</em>
-
-    </h2>
-
-
-    <p>
-
-      Your wedding happened once.
-      Your film lets you live inside
-      those moments again.
-
-    </p>
-
-  </div>
-
-
-  <div
-    class="home-films"
-    id="homeFilms"
-  >
-
-    <div class="gallery-loading">
-      LOADING FILMS...
-    </div>
-
-  </div>
-
-
-  <div class="center-link">
-
-    <a
-      href="films.html"
-      class="button button-dark"
-    >
-      WATCH OUR FILMS
-      <span>↗</span>
-    </a>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     STATEMENT
-===================================================== -->
-
-<section class="statement">
-
-  <div class="statement-image"></div>
-
-
-  <div class="statement-content">
-
-    <div class="section-number">
-      NOT JUST PHOTOGRAPHS
-    </div>
-
-
-    <h2>
-
-      One day,
-      <br>
-
-      <em>these moments</em>
-      <br>
-
-      will mean
-      everything.
-
-    </h2>
-
-
-    <p>
-
-      Years from now, we want your photographs
-      to take you back — not just show you
-      what the day looked like.
-
-    </p>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     SERVICES
-===================================================== -->
-
-<section class="services-preview section">
-
-  <div class="section-number">
-    04 — WHAT WE DO
-  </div>
-
-
-  <div class="services-layout">
-
-    <div>
-
-      <h2 class="display-title">
-
-        Created for
-        <br>
-        <em>your story.</em>
-
-      </h2>
-
-    </div>
-
-
-    <div class="service-list">
-
-
-      <a
-        href="services.html"
-        class="service-item"
-      >
-
-        <span>
-          01
-        </span>
-
-        <strong>
-          Wedding Photography
-        </strong>
-
-        <small>
-          HONEST · EDITORIAL · TIMELESS
-        </small>
-
-        <i>
-          ↗
-        </i>
-
-      </a>
-
-
-      <a
-        href="services.html"
-        class="service-item"
-      >
-
-        <span>
-          02
-        </span>
-
-        <strong>
-          Pre-Wedding
-        </strong>
-
-        <small>
-          NATURAL · CINEMATIC · PERSONAL
-        </small>
-
-        <i>
-          ↗
-        </i>
-
-      </a>
-
-
-      <a
-        href="services.html"
-        class="service-item"
-      >
-
-        <span>
-          03
-        </span>
-
-        <strong>
-          Cinematic Films
-        </strong>
-
-        <small>
-          EMOTION · MOVEMENT · STORY
-        </small>
-
-        <i>
-          ↗
-        </i>
-
-      </a>
-
-
-      <a
-        href="services.html"
-        class="service-item"
-      >
-
-        <span>
-          04
-        </span>
-
-        <strong>
-          Maternity & Family
-        </strong>
-
-        <small>
-          SOFT · TIMELESS · INTIMATE
-        </small>
-
-        <i>
-          ↗
-        </i>
-
-      </a>
-
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     CTA
-===================================================== -->
-
-<section class="final-cta">
-
-  <div class="final-cta-image"></div>
-
-
-  <div class="final-cta-overlay"></div>
-
-
-  <div class="final-cta-content">
-
-    <div class="section-number">
-      YOUR STORY STARTS HERE
-    </div>
-
-
-    <h2>
-
-      Let's make
-      <br>
-
-      something
-      <br>
-
-      <em>timeless.</em>
-
-    </h2>
-
-
-    <a
-      href="quote.html"
-      class="button button-white"
-    >
-      BUILD YOUR QUOTE
-      <span>↗</span>
-    </a>
-
-  </div>
-
-</section>
-
-
-</main>
-
-
-
-<!-- =====================================================
-     WHATSAPP
-===================================================== -->
-
-<a
-  href="https://wa.me/919989368077"
-  target="_blank"
-  class="floating-whatsapp"
-  aria-label="WhatsApp PREMSNAPS"
->
-
-  <span>
-    WHATSAPP
-  </span>
-
-</a>
-
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer>
-
-  <div class="footer-main">
-
-    <div class="footer-logo">
-      PREMSNAPS.
-    </div>
-
-
-    <div class="footer-description">
-
-      Wedding photography &
-      cinematic films for people
-      who want to remember
-      how it felt.
-
-    </div>
-
-
-    <div class="footer-navigation">
-
-      <a href="about.html">
-        ABOUT
-      </a>
-
-      <a href="photos.html">
-        PHOTOS
-      </a>
-
-      <a href="films.html">
-        FILMS
-      </a>
-
-      <a href="services.html">
-        SERVICES
-      </a>
-
-      <a href="quote.html">
-        QUOTE
-      </a>
-
-      <a href="contact.html">
-        CONTACT
-      </a>
-
-    </div>
-
-
-    <div class="footer-contact">
-
-      <div>
-        GET IN TOUCH
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="hero-image-wrap">
+        <img
+          id="hero-image"
+          src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2200&q=90"
+          alt="Wedding couple">
       </div>
 
-      <a
-        href="https://wa.me/919989368077"
-        target="_blank"
-      >
-        +91 99893 68077
-      </a>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+
+        <div class="eyebrow reveal">
+          WEDDING PHOTOGRAPHY & FILMS
+        </div>
+
+        <h1 class="hero-title">
+          <span class="reveal-line">Your day.</span>
+          <span class="reveal-line">Your people.</span>
+          <span class="reveal-line italic">Your story.</span>
+        </h1>
+
+        <div class="hero-bottom reveal">
+          <p>
+            Honest photographs.<br>
+            Cinematic films.<br>
+            Memories that stay.
+          </p>
+
+          <a href="photos.html" class="hero-link">
+            EXPLORE STORIES <span>↗</span>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="hero-scroll">
+        <span>SCROLL</span>
+        <div class="scroll-line"></div>
+      </div>
+
+    </section>
+
+
+    <!-- INTRO -->
+    <section class="intro section-padding">
+
+      <div class="section-number">01</div>
+
+      <div class="intro-content">
+
+        <p class="small-label reveal">THE PREMSNAPS APPROACH</p>
+
+        <h2 class="big-heading reveal">
+          We don't just<br>
+          <em>capture weddings.</em><br>
+          We preserve them.
+        </h2>
+
+        <div class="intro-text reveal">
+          <p>
+            The nervous smiles. The loud laughter. Your mother's eyes.
+            Your father's pride. The tiny moments nobody planned.
+          </p>
+
+          <a href="about.html" class="text-link">
+            OUR STORY <span>→</span>
+          </a>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEATURED GALLERY -->
+    <section class="featured-gallery">
+
+      <div class="gallery-heading section-padding">
+
+        <div>
+          <p class="small-label">02 — SELECTED STORIES</p>
+          <h2 class="section-title">
+            Moments<br>
+            <em>in motion.</em>
+          </h2>
+        </div>
+
+        <a href="photos.html" class="outline-button">
+          VIEW ALL PHOTOS →
+        </a>
+
+      </div>
+
+      <div class="home-gallery" id="home-gallery">
+
+        <div class="gallery-loading">
+          <span></span>
+          LOADING STORIES
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FILM FEATURE -->
+    <section class="film-feature">
+
+      <div class="film-background"></div>
+
+      <div class="film-content">
+
+        <p class="small-label">03 — WEDDING FILMS</p>
+
+        <h2>
+          Some moments<br>
+          deserve to be <em>heard.</em>
+        </h2>
+
+        <p>
+          The vows. The music. The laughter.
+          The voices you never want to forget.
+        </p>
+
+        <a href="films.html" class="light-button">
+          WATCH OUR FILMS ↗
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- SERVICES -->
+    <section class="services-home section-padding">
+
+      <div class="section-number">04</div>
+
+      <div class="services-layout">
+
+        <div>
+          <p class="small-label">WHAT WE DO</p>
+
+          <h2 class="section-title">
+            Made for<br>
+            <em>your story.</em>
+          </h2>
+        </div>
+
+        <div class="service-list">
+
+          <a href="services.html" class="service-item">
+            <span>01</span>
+            <div>
+              <h3>Wedding Photography</h3>
+              <p>Real emotions. Beautiful compositions. Honest storytelling.</p>
+            </div>
+            <strong>↗</strong>
+          </a>
+
+          <a href="services.html" class="service-item">
+            <span>02</span>
+            <div>
+              <h3>Candid & Cinematic</h3>
+              <p>Natural moments transformed into cinematic memories.</p>
+            </div>
+            <strong>↗</strong>
+          </a>
+
+          <a href="services.html" class="service-item">
+            <span>03</span>
+            <div>
+              <h3>Pre-Wedding</h3>
+              <p>Your chemistry, your location, your story.</p>
+            </div>
+            <strong>↗</strong>
+          </a>
+
+          <a href="services.html" class="service-item">
+            <span>04</span>
+            <div>
+              <h3>Wedding Films</h3>
+              <p>Films made to bring the day back to life.</p>
+            </div>
+            <strong>↗</strong>
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- STATEMENT -->
+    <section class="statement">
+
+      <div class="statement-inner">
+
+        <p class="small-label">05 — OUR PHILOSOPHY</p>
+
+        <h2>
+          Your wedding happens once.
+          <br>
+          <em>Your photographs shouldn't feel old.</em>
+        </h2>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section class="final-cta">
+
+      <div class="cta-inner">
+
+        <p class="small-label">06 — LET'S CREATE SOMETHING</p>
+
+        <h2>
+          Ready to tell<br>
+          <em>your story?</em>
+        </h2>
+
+        <a
+          href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20am%20planning%20my%20wedding%20and%20would%20like%20to%20know%20your%20packages."
+          target="_blank"
+          class="cta-button">
+          START A CONVERSATION ↗
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+        <div class="footer-logo">PREMSNAPS.</div>
+        <p>
+          Wedding photography<br>
+          & cinematic films.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="photos.html">PHOTOS</a>
+        <a href="films.html">FILMS</a>
+        <a href="services.html">SERVICES</a>
+        <a href="quote.html">QUOTE</a>
+      </div>
+
+      <div class="footer-contact">
+        <p>BOOKINGS & ENQUIRIES</p>
+        <a href="https://wa.me/919989368077" target="_blank">
+          +91 99893 68077
+        </a>
+      </div>
 
     </div>
 
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> PREMSNAPS.</span>
+      <span>MADE FOR LOVE STORIES.</span>
+    </div>
+
+  </footer>
+
+
+  <!-- FLOATING WHATSAPP -->
+  <a
+    href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20would%20like%20to%20enquire%20about%20wedding%20photography."
+    class="floating-whatsapp"
+    target="_blank"
+    aria-label="WhatsApp">
+    <span>WHATSAPP</span>
+    <b>↗</b>
+  </a>
+
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+
+    <button class="lightbox-close" id="lightbox-close">
+      ×
+    </button>
+
+    <img id="lightbox-image" src="" alt="Wedding photograph">
+
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+
   </div>
 
 
-  <div class="footer-bottom">
-
-    <span>
-      © <span id="year"></span> PREMSNAPS.IN
-    </span>
-
-    <span>
-      WEDDING PHOTOGRAPHY · FILMS
-    </span>
-
-    <span>
-      HYDERABAD · INDIA
-    </span>
-
-  </div>
-
-</footer>
-
-
-
-<!-- =====================================================
-     SCRIPT
-===================================================== -->
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 
 </body>
-
 </html>
