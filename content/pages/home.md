@@ -1,20 +1,20 @@
 ---
 title: Home
-hero_eyebrow: Your Wedding Films Our Responsiblity
-hero_title: Prem Snaps
-hero_title_highlight: Wedding Photography
-hero_description: Authentic, elegant and cinematic wedding memories — photographed with feeling, not just frames.
+hero_eyebrow: WEDDING PHOTOGRAPHY & FILMS
+hero_title: Where your Story
+hero_title_highlight: Becomes art.
+hero_description: Cinematic wedding films crafted with emotion, elegance, and a timeless point of view.
 intro_title: Beautifully real.
 intro_highlight: Forever yours.
 intro_description: We capture the in-between moments — the nervous smiles, the loud laughter, the quiet glances and everything that makes your wedding uniquely yours.
 gallery_title: SELECTED STORIES
-services_title: SERVICES
-about_title: ABOUT PREMSNAPS
-about_description: PREMSNAPS is a photography and films studio focused on real connection, natural emotion and cinematic storytelling. Our approach is calm, personal and unobtrusive — so you can be present while we preserve the moments.
-contact_eyebrow: LET'S CREATE SOMETHING BEAUTIFUL
-contact_title: Your date. Your story.
-contact_description: Tell us your wedding date, city and the kind of story you're planning. We'll get back to you with availability and packages.
-contact_email: hello@premsnaps.in
+services_title: WHAT WE DO
+about_title: THE ART OF PRESENCE
+about_description: We believe the best wedding photographs are not staged — they are felt. At Prem Snaps, we document genuine emotions, beautiful details and the people who make your story meaningful. Our approach is calm, unobtrusive and cinematic, allowing you to live every moment while we preserve it for years to come.
+contact_eyebrow: LET'S TELL YOUR STORY
+contact_title: YOUR DATE. YOUR STORY.
+contact_description: Tell us your wedding date, city and what you have in mind. We'll check our availability and get back to you with the right photography and film options for your celebration.
+contact_email: weddings@premsnaps.in
 ---
 
 # Premsnaps
