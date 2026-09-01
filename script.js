@@ -1659,3 +1659,1294 @@ async function loadGoogleDrive() {
   }
 
 }
+/* =========================================================
+   PREMSNAPS — QUOTE CALCULATOR
+========================================================= */
+
+const QUOTE_DATA = [
+
+  {
+    title: "WHAT PHOTOGRAPHY DO YOU WANT?",
+    multi: false,
+    options: [
+      {
+        name: "Candid & Cinematic",
+        price: 0
+      },
+      {
+        name: "Traditional Photography",
+        price: 0
+      }
+    ]
+  },
+
+
+  {
+    title: "PRE-WEDDING SHOOT",
+    multi: false,
+    options: [
+      {
+        name: "Only Photos",
+        price: 25000
+      },
+      {
+        name: "Photos + Video",
+        price: 45000
+      }
+    ]
+  },
+
+
+  {
+    title: "ENGAGEMENT",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      },
+      {
+        name: "Candid Photo",
+        price: 20000
+      },
+      {
+        name: "Cinematic",
+        price: 20000
+      },
+      {
+        name: "Drone",
+        price: 10000
+      }
+    ]
+  },
+
+
+  {
+    title: "PELLIKODUKU",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      },
+      {
+        name: "Candid",
+        price: 20000
+      }
+    ]
+  },
+
+
+  {
+    title: "GROOM HALDI",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      },
+      {
+        name: "Candid Photo",
+        price: 20000
+      },
+      {
+        name: "Cinematic",
+        price: 20000
+      },
+      {
+        name: "Drone",
+        price: 10000
+      }
+    ]
+  },
+
+
+  {
+    title: "PELLIKUTHURU",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      },
+      {
+        name: "Candid",
+        price: 20000
+      }
+    ]
+  },
+
+
+  {
+    title: "BRIDE HALDI",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      },
+      {
+        name: "Candid Photo",
+        price: 20000
+      },
+      {
+        name: "Cinematic",
+        price: 20000
+      },
+      {
+        name: "Drone",
+        price: 10000
+      }
+    ]
+  },
+
+
+  {
+    title: "WEDDING",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      },
+      {
+        name: "Candid Photo",
+        price: 25000
+      },
+      {
+        name: "Cinematic",
+        price: 25000
+      },
+      {
+        name: "Drone",
+        price: 10000
+      }
+    ]
+  },
+
+
+  {
+    title: "RECEPTION",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      },
+      {
+        name: "Candid Photo",
+        price: 20000
+      },
+      {
+        name: "Cinematic",
+        price: 20000
+      },
+      {
+        name: "Drone",
+        price: 10000
+      }
+    ]
+  },
+
+
+  {
+    title: "VRATHAM",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      }
+    ]
+  },
+
+
+  {
+    title: "SANGEETH",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      },
+      {
+        name: "Candid Photo",
+        price: 20000
+      },
+      {
+        name: "Cinematic",
+        price: 20000
+      },
+      {
+        name: "Drone",
+        price: 10000
+      }
+    ]
+  },
+
+
+  {
+    title: "MEHANDI",
+    multi: true,
+    options: [
+      {
+        name: "Traditional Photo",
+        price: 10000
+      },
+      {
+        name: "Traditional Video",
+        price: 15000
+      }
+    ]
+  },
+
+
+  {
+    title: "ALBUMS",
+    multi: true,
+    options: [
+      {
+        name: "Pressbook",
+        price: 25000
+      },
+      {
+        name: "Royal Album",
+        price: 35000
+      }
+    ]
+  }
+
+];
+
+
+/* =========================================================
+   QUOTE STATE
+========================================================= */
+
+let quoteStep = 0;
+
+const quoteSelections = {};
+
+
+/* =========================================================
+   FORMAT PRICE
+========================================================= */
+
+function formatPrice(
+  amount
+) {
+
+  return (
+    "₹" +
+    Number(amount).toLocaleString(
+      "en-IN"
+    ) +
+    "/-"
+  );
+
+}
+
+
+/* =========================================================
+   CALCULATE TOTAL
+========================================================= */
+
+function calculateQuoteTotal() {
+
+  let total = 0;
+
+
+  Object.keys(
+    quoteSelections
+  ).forEach(
+
+    function (step) {
+
+      quoteSelections[step].forEach(
+
+        function (selected) {
+
+          total +=
+            Number(
+              selected.price
+            );
+
+        }
+
+      );
+
+    }
+
+  );
+
+
+  return total;
+
+}
+
+
+/* =========================================================
+   UPDATE PRICE
+========================================================= */
+
+function updateQuotePrice() {
+
+  const total =
+    calculateQuoteTotal();
+
+
+  const topPrice =
+    document.getElementById(
+      "quotePrice"
+    );
+
+
+  const summaryPrice =
+    document.getElementById(
+      "summaryPrice"
+    );
+
+
+  if (topPrice) {
+
+    topPrice.textContent =
+      formatPrice(total);
+
+  }
+
+
+  if (summaryPrice) {
+
+    summaryPrice.textContent =
+      formatPrice(total);
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER PROGRESS
+========================================================= */
+
+function renderQuoteProgress() {
+
+  const progress =
+    document.getElementById(
+      "quoteProgress"
+    );
+
+
+  if (!progress) {
+    return;
+  }
+
+
+  progress.innerHTML = "";
+
+
+  QUOTE_DATA.forEach(
+
+    function (_, index) {
+
+      const dot =
+        document.createElement(
+          "span"
+        );
+
+
+      dot.className =
+        "quote-dot";
+
+
+      if (
+        index === quoteStep
+      ) {
+
+        dot.classList.add(
+          "active"
+        );
+
+      }
+
+
+      if (
+        index < quoteStep
+      ) {
+
+        dot.classList.add(
+          "completed"
+        );
+
+      }
+
+
+      dot.textContent =
+        String(index + 1)
+          .padStart(2, "0");
+
+
+      progress.appendChild(
+        dot
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =========================================================
+   RENDER CURRENT STEP
+========================================================= */
+
+function renderQuoteStep() {
+
+  const title =
+    document.getElementById(
+      "quoteTitle"
+    );
+
+
+  const options =
+    document.getElementById(
+      "quoteOptions"
+    );
+
+
+  const number =
+    document.getElementById(
+      "quoteStepNumber"
+    );
+
+
+  if (
+    !title ||
+    !options
+  ) {
+
+    return;
+
+  }
+
+
+  const current =
+    QUOTE_DATA[
+      quoteStep
+    ];
+
+
+  title.textContent =
+    current.title;
+
+
+  if (number) {
+
+    number.textContent =
+      String(
+        quoteStep + 1
+      ).padStart(2, "0") +
+      " / " +
+      String(
+        QUOTE_DATA.length
+      ).padStart(2, "0");
+
+  }
+
+
+  options.innerHTML = "";
+
+
+  const selected =
+    quoteSelections[
+      quoteStep
+    ] || [];
+
+
+  current.options.forEach(
+
+    function (option) {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "quote-option";
+
+
+      const isSelected =
+        selected.some(
+
+          function (item) {
+
+            return (
+              item.name ===
+              option.name
+            );
+
+          }
+
+        );
+
+
+      if (isSelected) {
+
+        card.classList.add(
+          "selected"
+        );
+
+      }
+
+
+      card.innerHTML = `
+
+        <div class="quote-option-check">
+          ${isSelected ? "✓" : ""}
+        </div>
+
+        <div class="quote-option-name">
+          ${option.name}
+        </div>
+
+        ${
+          option.price > 0
+          ? `
+            <div class="quote-option-price">
+              ${formatPrice(option.price)}
+            </div>
+          `
+          : `
+            <div class="quote-option-note">
+              INCLUDED / PREFERENCE
+            </div>
+          `
+        }
+
+      `;
+
+
+      card.addEventListener(
+        "click",
+        function () {
+
+          selectQuoteOption(
+            option
+          );
+
+        }
+      );
+
+
+      options.appendChild(
+        card
+      );
+
+    }
+
+  );
+
+
+  updateQuotePrice();
+
+  renderQuoteProgress();
+
+  renderQuoteSummary();
+
+  updateQuoteButtons();
+
+}
+
+
+/* =========================================================
+   SELECT OPTION
+========================================================= */
+
+function selectQuoteOption(
+  option
+) {
+
+  if (
+    !quoteSelections[
+      quoteStep
+    ]
+  ) {
+
+    quoteSelections[
+      quoteStep
+    ] = [];
+
+  }
+
+
+  const selected =
+    quoteSelections[
+      quoteStep
+    ];
+
+
+  const existingIndex =
+    selected.findIndex(
+
+      function (item) {
+
+        return (
+          item.name ===
+          option.name
+        );
+
+      }
+
+    );
+
+
+  /*
+    SINGLE SELECT
+  */
+
+  if (
+    !QUOTE_DATA[
+      quoteStep
+    ].multi
+  ) {
+
+    quoteSelections[
+      quoteStep
+    ] = [
+      option
+    ];
+
+  }
+
+
+  /*
+    MULTIPLE SELECT
+  */
+
+  else {
+
+    if (
+      existingIndex >= 0
+    ) {
+
+      selected.splice(
+        existingIndex,
+        1
+      );
+
+    }
+
+    else {
+
+      selected.push(
+        option
+      );
+
+    }
+
+  }
+
+
+  renderQuoteStep();
+
+}
+
+
+/* =========================================================
+   NEXT
+========================================================= */
+
+function nextQuoteStep() {
+
+  /*
+    Require selection
+    before moving forward.
+  */
+
+  const selected =
+    quoteSelections[
+      quoteStep
+    ] || [];
+
+
+  if (
+    selected.length === 0
+  ) {
+
+    alert(
+      "Please select at least one option before continuing."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    quoteStep <
+    QUOTE_DATA.length - 1
+  ) {
+
+    quoteStep++;
+
+    renderQuoteStep();
+
+    window.scrollTo({
+
+      top:
+        document.getElementById(
+          "quoteBuilder"
+        )?.offsetTop - 100 || 0,
+
+      behavior:
+        "smooth"
+
+    });
+
+  }
+
+
+  else {
+
+    const details =
+      document.getElementById(
+        "quoteDetails"
+      );
+
+
+    if (details) {
+
+      details.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   PREVIOUS
+========================================================= */
+
+function previousQuoteStep() {
+
+  if (
+    quoteStep > 0
+  ) {
+
+    quoteStep--;
+
+    renderQuoteStep();
+
+    window.scrollTo({
+
+      top:
+        document.getElementById(
+          "quoteBuilder"
+        )?.offsetTop - 100 || 0,
+
+      behavior:
+        "smooth"
+
+    });
+
+  }
+
+}
+
+
+/* =========================================================
+   BUTTON STATE
+========================================================= */
+
+function updateQuoteButtons() {
+
+  const previous =
+    document.getElementById(
+      "previousStep"
+    );
+
+
+  const next =
+    document.getElementById(
+      "nextStep"
+    );
+
+
+  if (previous) {
+
+    previous.style.opacity =
+      quoteStep === 0
+        ? "0.35"
+        : "1";
+
+    previous.style.pointerEvents =
+      quoteStep === 0
+        ? "none"
+        : "auto";
+
+  }
+
+
+  if (next) {
+
+    next.textContent =
+      quoteStep ===
+      QUOTE_DATA.length - 1
+
+        ? "GO TO DETAILS →"
+
+        : "NEXT →";
+
+  }
+
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function renderQuoteSummary() {
+
+  const container =
+    document.getElementById(
+      "summaryItems"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  container.innerHTML = "";
+
+
+  let hasSelection =
+    false;
+
+
+  QUOTE_DATA.forEach(
+
+    function (step, index) {
+
+      const selections =
+        quoteSelections[
+          index
+        ] || [];
+
+
+      if (
+        selections.length === 0
+      ) {
+
+        return;
+
+      }
+
+
+      hasSelection = true;
+
+
+      const heading =
+        document.createElement(
+          "div"
+        );
+
+
+      heading.className =
+        "summary-event";
+
+
+      heading.textContent =
+        step.title;
+
+
+      container.appendChild(
+        heading
+      );
+
+
+      selections.forEach(
+
+        function (item) {
+
+          const row =
+            document.createElement(
+              "div"
+            );
+
+
+          row.className =
+            "summary-row";
+
+
+          row.innerHTML = `
+
+            <span>
+              ${item.name}
+            </span>
+
+            <strong>
+              ${
+                item.price > 0
+                  ? formatPrice(item.price)
+                  : "—"
+              }
+            </strong>
+
+          `;
+
+
+          container.appendChild(
+            row
+          );
+
+        }
+
+      );
+
+    }
+
+  );
+
+
+  if (!hasSelection) {
+
+    container.innerHTML =
+      `
+        <div class="summary-empty">
+          Nothing selected yet.
+        </div>
+      `;
+
+  }
+
+}
+
+
+/* =========================================================
+   SEND QUOTE TO WHATSAPP
+========================================================= */
+
+function sendQuoteToWhatsApp(
+  event
+) {
+
+  event.preventDefault();
+
+
+  const form =
+    document.getElementById(
+      "quoteForm"
+    );
+
+
+  if (!form) {
+    return;
+  }
+
+
+  const formData =
+    new FormData(
+      form
+    );
+
+
+  const coupleNames =
+    formData.get(
+      "coupleNames"
+    );
+
+
+  const weddingDate =
+    formData.get(
+      "weddingDate"
+    );
+
+
+  const location =
+    formData.get(
+      "location"
+    );
+
+
+  const phone =
+    formData.get(
+      "phone"
+    );
+
+
+  const email =
+    formData.get(
+      "email"
+    );
+
+
+  const message =
+    formData.get(
+      "message"
+    );
+
+
+  let whatsappMessage =
+    "PREMSNAPS.IN — WEDDING QUOTE";
+
+
+  whatsappMessage +=
+    "\n\n" +
+    "COUPLE DETAILS";
+
+
+  whatsappMessage +=
+    "\nCouple: " +
+    coupleNames;
+
+
+  whatsappMessage +=
+    "\nWedding Date: " +
+    weddingDate;
+
+
+  whatsappMessage +=
+    "\nLocation: " +
+    location;
+
+
+  whatsappMessage +=
+    "\nPhone: " +
+    phone;
+
+
+  if (email) {
+
+    whatsappMessage +=
+      "\nEmail: " +
+      email;
+
+  }
+
+
+  whatsappMessage +=
+    "\n\nSELECTED SERVICES";
+
+
+  QUOTE_DATA.forEach(
+
+    function (step, index) {
+
+      const selections =
+        quoteSelections[
+          index
+        ] || [];
+
+
+      if (
+        selections.length === 0
+      ) {
+
+        return;
+
+      }
+
+
+      whatsappMessage +=
+        "\n\n" +
+        step.title;
+
+
+      selections.forEach(
+
+        function (item) {
+
+          whatsappMessage +=
+            "\n• " +
+            item.name;
+
+
+          if (
+            item.price > 0
+          ) {
+
+            whatsappMessage +=
+              " — " +
+              formatPrice(
+                item.price
+              );
+
+          }
+
+        }
+
+      );
+
+    }
+
+  );
+
+
+  const total =
+    calculateQuoteTotal();
+
+
+  whatsappMessage +=
+    "\n\n" +
+    "ESTIMATED TOTAL: " +
+    formatPrice(total);
+
+
+  if (message) {
+
+    whatsappMessage +=
+      "\n\nNOTES:\n" +
+      message;
+
+  }
+
+
+  whatsappMessage +=
+    "\n\nThank you — PREMSNAPS.IN";
+
+
+  const whatsappURL =
+    "https://wa.me/" +
+    CONFIG.whatsapp +
+    "?text=" +
+    encodeURIComponent(
+      whatsappMessage
+    );
+
+
+  window.open(
+    whatsappURL,
+    "_blank"
+  );
+
+}
+
+
+/* =========================================================
+   INITIALIZE QUOTE
+========================================================= */
+
+function initQuoteCalculator() {
+
+  const builder =
+    document.getElementById(
+      "quoteBuilder"
+    );
+
+
+  if (!builder) {
+    return;
+  }
+
+
+  const next =
+    document.getElementById(
+      "nextStep"
+    );
+
+
+  const previous =
+    document.getElementById(
+      "previousStep"
+    );
+
+
+  if (next) {
+
+    next.addEventListener(
+      "click",
+      nextQuoteStep
+    );
+
+  }
+
+
+  if (previous) {
+
+    previous.addEventListener(
+      "click",
+      previousQuoteStep
+    );
+
+  }
+
+
+  const form =
+    document.getElementById(
+      "quoteForm"
+    );
+
+
+  if (form) {
+
+    form.addEventListener(
+      "submit",
+      sendQuoteToWhatsApp
+    );
+
+  }
+
+
+  renderQuoteStep();
+
+}
+
+
+/* =========================================================
+   START QUOTE
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    initQuoteCalculator();
+
+  }
+);
