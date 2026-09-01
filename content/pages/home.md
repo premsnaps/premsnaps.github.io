@@ -1,8 +1,8 @@
 ---
 title: Home
 hero_eyebrow: WEDDING PHOTOGRAPHY • FILMS • STORIES
-hero_title: Stories that
-hero_title_highlight: last forever.
+hero_title: Prem Sahitya
+hero_title_highlight: forever.
 hero_description: Authentic, elegant and cinematic wedding memories — photographed with feeling, not just frames.
 intro_title: Beautifully real.
 intro_highlight: Forever yours.
