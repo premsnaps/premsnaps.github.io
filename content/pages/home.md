@@ -1,8 +1,8 @@
 ---
 title: Home
-hero_eyebrow: PREMSNAPS TEST01
-hero_title: Prem Snaps
-hero_title_highlight: Wedding Photography
+hero_eyebrow: WEDDING PHOTOGRAPHY • FILMS • STORIES
+hero_title: Stories that
+hero_title_highlight: last forever.
 hero_description: Authentic, elegant and cinematic wedding memories — photographed with feeling, not just frames.
 intro_title: Beautifully real.
 intro_highlight: Forever yours.
@@ -14,7 +14,7 @@ about_description: PREMSNAPS is a photography and films studio focused on real c
 contact_eyebrow: LET'S CREATE SOMETHING BEAUTIFUL
 contact_title: Your date. Your story.
 contact_description: Tell us your wedding date, city and the kind of story you're planning. We'll get back to you with availability and packages.
-contact_email: weddings@premsnaps.in
+contact_email: hello@premsnaps.in
 ---
 
 # Premsnaps
