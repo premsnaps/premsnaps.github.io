@@ -1,6 +1,6 @@
 ---
 title: Home
-hero_eyebrow: WEDDING PHOTOGRAPHY • FILMS
+hero_eyebrow: PREMSNAPS TEST
 hero_title: Stories that
 hero_title_highlight: last forever.
 hero_description: Authentic, elegant and cinematic wedding memories — photographed with feeling, not just frames.
