@@ -1,3 +1,34 @@
+// PREMSNAPS — Google Drive Gallery Test
+const DRIVE_API_KEY = "AIzaSyBYk83Ua9JRRmV_oPwl89I6O74EXflH9sw";
+const DRIVE_FOLDER_ID = "1GhS35bFfeKQNENi81UcZ4WgX-vh2TlNe";
+
+async function testDriveGallery() {
+  try {
+    const params = new URLSearchParams({
+      q: `'${DRIVE_FOLDER_ID}' in parents and trashed = false`,
+      fields: "files(id,name,mimeType,thumbnailLink,webContentLink,modifiedTime)",
+      pageSize: "100",
+      key: DRIVE_API_KEY
+    });
+
+    const response = await fetch(
+      `https://www.googleapis.com/drive/v3/files?${params.toString()}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`Google Drive API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    console.log("PREMSNAPS DRIVE FILES:", data.files);
+
+  } catch (error) {
+    console.error("PREMSNAPS DRIVE ERROR:", error);
+  }
+}
+
+testDriveGallery();
 // PREMSNAPS — Sveltia CMS Content Loader
 
 // Automatic copyright year
