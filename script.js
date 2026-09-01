@@ -14,10 +14,10 @@
 const DRIVE_API_KEY = "AIzaSyBYk83Ua9JRRmV_oPwl89I6O74EXflH9sw";
 
 const DRIVE_ROOT_FOLDER_ID =
-  "PASTE_YOUR_WEDDING_FOLDER_ID_HERE";
+  "https://drive.google.com/drive/u/0/folders/1GhS35bFfeKQNENi81UcZ4WgX-vh2TlNe";
 
 const MAIN_PHOTO_FILE_ID =
-  "PASTE_YOUR_MAIN_PHOTO_FILE_ID_HERE";
+  "https://drive.google.com/file/d/1nAUw08AGlkzhIumIfIwDOq8RhBlHMLkD/view?usp=sharing";
 
 
 /*
