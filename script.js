@@ -313,3 +313,71 @@ function escapeHTML(value) {
 
 // Run after page loads
 loadCMSContent();
+
+
+const DRIVE_API_KEY = "AIzaSyBYk83Ua9JRRmV_oPwl89I6O74EXflH9sw";
+const DRIVE_FOLDER_ID = "1GhS35bFfeKQNENi81UcZ4WgX-vh2TlNe";
+async function loadDriveGallery() {
+  const gallery = document.getElementById("drive-gallery");
+  if (!gallery) return;
+
+  const query = `'${DRIVE_FOLDER_ID}' in parents and trashed = false`;
+
+  const url =
+    "https://www.googleapis.com/drive/v3/files" +
+    "?q=" + encodeURIComponent(query) +
+    "&key=" + encodeURIComponent(DRIVE_API_KEY) +
+    "&pageSize=100" +
+    "&orderBy=createdTime desc" +
+    "&fields=files(id,name,mimeType)";
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  console.log("Drive files:", data);
+
+  gallery.innerHTML = "";
+
+  if (!data.files || data.files.length === 0) {
+    gallery.innerHTML = '<div class="drive-loading">No photos or videos found.</div>';
+    return;
+  }
+
+  data.files.forEach(file => {
+    const item = document.createElement("figure");
+    item.className = "card drive-card";
+
+    if (file.mimeType.startsWith("image/")) {
+      const img = document.createElement("img");
+
+      img.src =
+        "https://drive.google.com/thumbnail?id=" +
+        encodeURIComponent(file.id) +
+        "&sz=w1600";
+
+      img.alt = file.name;
+      img.loading = "lazy";
+
+      item.appendChild(img);
+    }
+if (file.mimeType.startsWith("video/")) {
+  const video = document.createElement("video");
+
+  video.src =
+    "https://www.googleapis.com/drive/v3/files/" +
+    encodeURIComponent(file.id) +
+    "?alt=media&key=" +
+    encodeURIComponent(DRIVE_API_KEY);
+
+  video.controls = true;
+  video.preload = "metadata";
+  video.playsInline = true;
+
+  video.setAttribute("aria-label", file.name);
+
+  item.appendChild(video);
+}
+    gallery.appendChild(item);
+  });
+}
+loadDriveGallery();
