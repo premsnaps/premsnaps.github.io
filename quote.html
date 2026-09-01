@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Build Your Quote | PREMSNAPS.IN</title>
+
+  <meta
+    name="description"
+    content="Build your custom wedding photography and film package with PREMSNAPS.IN."
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+
+<body data-page="quote">
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="navbar">
+
+  <a
+    href="index.html"
+    class="brand"
+  >
+    PREMSNAPS.
+  </a>
+
+
+  <button
+    class="menu-btn"
+    id="menuBtn"
+  >
+    ☰
+  </button>
+
+
+  <nav
+    class="navigation"
+    id="navigation"
+  >
+
+    <a href="index.html">
+      HOME
+    </a>
+
+    <a href="about.html">
+      ABOUT
+    </a>
+
+    <a href="photos.html">
+      PHOTOS
+    </a>
+
+    <a href="films.html">
+      FILMS
+    </a>
+
+    <a href="services.html">
+      SERVICES
+    </a>
+
+    <a
+      href="quote.html"
+      class="active"
+    >
+      BUILD YOUR QUOTE
+    </a>
+
+    <a href="contact.html">
+      CONTACT
+    </a>
+
+  </nav>
+
+</header>
+
+
+
+<!-- =====================================================
+     PAGE HERO
+===================================================== -->
+
+<main>
+
+<section class="page-hero">
+
+  <div class="eyebrow dark-text">
+    PREMSNAPS.IN
+  </div>
+
+
+  <h1>
+
+    BUILD YOUR
+    <br>
+
+    <em>WEDDING QUOTE.</em>
+
+  </h1>
+
+
+  <p>
+
+    Choose the events and services
+    you need. Your estimated package
+    will update automatically.
+
+  </p>
+
+</section>
+
+
+
+<!-- =====================================================
+     STICKY TOTAL
+===================================================== -->
+
+<div class="quote-total-bar">
+
+  <span>
+    CURRENT ESTIMATED PRICE
+  </span>
+
+
+  <strong id="quotePrice">
+    ₹0/-
+  </strong>
+
+</div>
+
+
+
+<!-- =====================================================
+     QUOTE BUILDER
+===================================================== -->
+
+<section
+  class="section quote-section"
+  id="quoteBuilder"
+>
+
+
+  <!-- PROGRESS -->
+
+  <div
+    class="quote-progress"
+    id="quoteProgress"
+  ></div>
+
+
+
+  <!-- STEP TITLE -->
+
+  <div class="quote-step-header">
+
+    <div>
+
+      <div class="eyebrow dark-text">
+        BUILD YOUR PACKAGE
+      </div>
+
+
+      <h2
+        id="quoteTitle"
+      >
+        WHAT PHOTOGRAPHY DO YOU WANT?
+      </h2>
+
+    </div>
+
+
+    <div
+      class="quote-step-number"
+      id="quoteStepNumber"
+    >
+      01 / 13
+    </div>
+
+  </div>
+
+
+
+  <!-- OPTIONS -->
+
+  <div
+    class="quote-options"
+    id="quoteOptions"
+  ></div>
+
+
+
+  <!-- NAVIGATION -->
+
+  <div class="quote-navigation">
+
+    <button
+      type="button"
+      class="button button-dark"
+      id="previousStep"
+    >
+      ← PREVIOUS
+    </button>
+
+
+    <button
+      type="button"
+      class="button button-dark"
+      id="nextStep"
+    >
+      NEXT →
+    </button>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     FINAL DETAILS
+===================================================== -->
+
+<section
+  class="section quote-details"
+  id="quoteDetails"
+>
+
+  <div class="quote-details-grid">
+
+
+    <!-- LEFT -->
+
+    <div>
+
+      <div class="eyebrow dark-text">
+        FINAL STEP
+      </div>
+
+
+      <h2>
+
+        TELL US ABOUT
+        <br>
+
+        <em>YOUR BIG DAY.</em>
+
+      </h2>
+
+
+      <p>
+
+        Once you submit your details,
+        your selected package and
+        estimated price will be sent
+        directly to PREMSNAPS on WhatsApp.
+
+      </p>
+
+    </div>
+
+
+
+    <!-- RIGHT -->
+
+    <div>
+
+      <form
+        id="quoteForm"
+        class="quote-form"
+      >
+
+
+        <div class="form-grid">
+
+
+          <div class="form-field full">
+
+            <label>
+              COUPLE NAMES *
+            </label>
+
+            <input
+              type="text"
+              name="coupleNames"
+              placeholder="Example: Rahul & Priya"
+              required
+            >
+
+          </div>
+
+
+
+          <div class="form-field">
+
+            <label>
+              WEDDING DATE *
+            </label>
+
+            <input
+              type="date"
+              name="weddingDate"
+              required
+            >
+
+          </div>
+
+
+
+          <div class="form-field">
+
+            <label>
+              WEDDING LOCATION *
+            </label>
+
+            <input
+              type="text"
+              name="location"
+              placeholder="Hyderabad"
+              required
+            >
+
+          </div>
+
+
+
+          <div class="form-field">
+
+            <label>
+              PHONE NUMBER *
+            </label>
+
+            <input
+              type="tel"
+              name="phone"
+              placeholder="99893 68077"
+              required
+            >
+
+          </div>
+
+
+
+          <div class="form-field">
+
+            <label>
+              EMAIL
+            </label>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+            >
+
+          </div>
+
+
+
+          <div class="form-field full">
+
+            <label>
+              ANYTHING ELSE?
+            </label>
+
+            <textarea
+              name="message"
+              placeholder="Tell us anything important about your wedding..."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- SUMMARY -->
+
+        <div class="quote-summary">
+
+          <div class="summary-heading">
+            YOUR PACKAGE
+          </div>
+
+
+          <div
+            id="summaryItems"
+            class="summary-items"
+          >
+
+            <div class="summary-empty">
+              Nothing selected yet.
+            </div>
+
+          </div>
+
+
+          <div class="summary-total">
+
+            <span>
+              ESTIMATED TOTAL
+            </span>
+
+
+            <strong id="summaryPrice">
+              ₹0/-
+            </strong>
+
+          </div>
+
+        </div>
+
+
+
+        <label class="terms">
+
+          <input
+            type="checkbox"
+            id="termsCheck"
+            required
+          >
+
+          <span>
+            I understand this is an estimated quote
+            and the final package will be confirmed
+            with PREMSNAPS.
+          </span>
+
+        </label>
+
+
+
+        <button
+          type="submit"
+          class="button button-dark submit-quote"
+        >
+
+          SEND MY QUOTE
+          →
+          
+        </button>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="final-cta">
+
+  <div class="eyebrow">
+    NEED HELP CHOOSING?
+  </div>
+
+
+  <h2>
+
+    TALK TO
+    <br>
+
+    <em>US.</em>
+
+  </h2>
+
+
+  <p>
+
+    Not sure what you need?
+    No problem. WhatsApp us and
+    we'll help you choose the right
+    coverage for your wedding.
+
+  </p>
+
+
+  <a
+    href="https://wa.me/919989368077"
+    target="_blank"
+    class="button button-light"
+  >
+    CHAT ON WHATSAPP
+  </a>
+
+</section>
+
+</main>
+
+
+
+<!-- =====================================================
+     WHATSAPP
+===================================================== -->
+
+<a
+  href="https://wa.me/919989368077"
+  class="whatsapp-button"
+  target="_blank"
+  aria-label="Chat with PREMSNAPS on WhatsApp"
+>
+
+  <span>
+    WHATSAPP
+  </span>
+
+</a>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+  <div class="footer-top">
+
+    <div class="footer-brand">
+      PREMSNAPS.
+    </div>
+
+
+    <div class="footer-links">
+
+      <a href="index.html">
+        HOME
+      </a>
+
+      <a href="about.html">
+        ABOUT
+      </a>
+
+      <a href="photos.html">
+        PHOTOS
+      </a>
+
+      <a href="films.html">
+        FILMS
+      </a>
+
+      <a href="services.html">
+        SERVICES
+      </a>
+
+      <a href="quote.html">
+        BUILD YOUR QUOTE
+      </a>
+
+      <a href="contact.html">
+        CONTACT
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+
+      ©
+      <span id="year"></span>
+      PREMSNAPS.IN
+
+    </span>
+
+
+    <span>
+      WEDDING PHOTOGRAPHY · FILMS · STORIES
+    </span>
+
+  </div>
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
