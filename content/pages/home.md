@@ -1,8 +1,8 @@
 ---
 title: Home
 hero_eyebrow: PREMSNAPS TEST
-hero_title: Prem
-hero_title_highlight: last forever.
+hero_title: Prem Snaps
+hero_title_highlight: Wedding Photography
 hero_description: Authentic, elegant and cinematic wedding memories — photographed with feeling, not just frames.
 intro_title: Beautifully real.
 intro_highlight: Forever yours.
