@@ -1,6 +1,6 @@
 ---
 title: Home
-hero_eyebrow: PREMSNAPS TEST
+hero_eyebrow: PREMSNAPS TEST01
 hero_title: Prem Snaps
 hero_title_highlight: Wedding Photography
 hero_description: Authentic, elegant and cinematic wedding memories — photographed with feeling, not just frames.
