@@ -2,15 +2,13 @@
 
 // Automatic copyright year
 const year = document.getElementById("year");
-
 if (year) {
   year.textContent = new Date().getFullYear();
 }
 
-
 // Mobile menu
 const menu = document.querySelector(".menu");
-const nav = document.querySelector(".nav nav");
+const nav = document.querySelector("nav");
 
 if (menu && nav) {
   menu.addEventListener("click", () => {
@@ -21,7 +19,7 @@ if (menu && nav) {
       nav.style.top = "70px";
       nav.style.left = "0";
       nav.style.right = "0";
-      nav.style.padding = "22px 7vw";
+      nav.style.padding = "22px";
       nav.style.background = "#f5f2ed";
       nav.style.flexDirection = "column";
       nav.style.alignItems = "flex-start";
@@ -30,35 +28,62 @@ if (menu && nav) {
 }
 
 
-// Escape HTML
-function escapeHtml(value) {
-  return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+// --------------------------------------------------
+// SVELTIA CMS LOADER
+// --------------------------------------------------
 
+async function loadCMSContent() {
 
-// Read YAML front matter from Sveltia CMS
-function parseCmsContent(markdown) {
-  const match = markdown.match(/^---\s*([\s\S]*?)\s*---/);
+  try {
 
-  if (!match) {
-    return {};
-  }
+    // Load directly from GitHub.
+    // This avoids problems caused by the custom domain cache.
+    const cmsURL =
+      "https://raw.githubusercontent.com/premsnaps/premsnaps.github.io/main/content/pages/home.md?cb=" +
+      Date.now();
 
-  const frontMatter = match[1];
-  const data = {};
+    const response = await fetch(cmsURL, {
+      cache: "no-store"
+    });
 
-  frontMatter.split("\n").forEach(line => {
-    const match = line.match(/^([a-zA-Z0-9_]+):\s*(.*)$/);
+    if (!response.ok) {
+      throw new Error("CMS file could not be loaded");
+    }
 
-    if (match) {
-      let value = match[2].trim();
+    const markdown = await response.text();
 
-      // Remove surrounding quotes if present
+    console.log("PREMSNAPS CMS file loaded.");
+
+    // ----------------------------------------------
+    // Read YAML front matter
+    // ----------------------------------------------
+
+    const match = markdown.match(/^---\s*([\s\S]*?)\s*---/);
+
+    if (!match) {
+      console.error("CMS YAML front matter not found.");
+      return;
+    }
+
+    const yaml = match[1];
+
+    const data = {};
+
+    yaml.split("\n").forEach(line => {
+
+      const separator = line.indexOf(":");
+
+      if (separator === -1) return;
+
+      const key = line
+        .slice(0, separator)
+        .trim();
+
+      let value = line
+        .slice(separator + 1)
+        .trim();
+
+      // Remove surrounding quotes
       if (
         (value.startsWith('"') && value.endsWith('"')) ||
         (value.startsWith("'") && value.endsWith("'"))
@@ -66,149 +91,111 @@ function parseCmsContent(markdown) {
         value = value.slice(1, -1);
       }
 
-      data[match[1]] = value;
-    }
-  });
-
-  return data;
-}
-
-
-// Load website content from Sveltia CMS
-async function loadCmsContent() {
-
-  try {
-
-    const response = await fetch("/content/pages/home.md", {
-      cache: "no-store"
+      data[key] = value;
     });
 
-    if (!response.ok) {
-      throw new Error("CMS content could not be loaded");
+
+    // ----------------------------------------------
+    // Helper
+    // ----------------------------------------------
+
+    function setText(selector, value) {
+
+      if (!value) return;
+
+      const element = document.querySelector(selector);
+
+      if (element) {
+        element.textContent = value;
+      }
     }
 
-    const markdown = await response.text();
-    const content = parseCmsContent(markdown);
 
-
-    // Page title
-    if (content.title) {
-      document.title = `${content.title} | Wedding Photography & Films`;
-    }
-
-
+    // ----------------------------------------------
     // HERO
-    const heroEyebrow = document.querySelector(".hero .eyebrow");
-    const heroTitle = document.querySelector(".hero h1");
-    const heroDescription = document.querySelector(".hero-copy");
+    // ----------------------------------------------
 
-    if (heroEyebrow && content.hero_eyebrow) {
-      heroEyebrow.textContent = content.hero_eyebrow;
-    }
-
-    if (heroTitle && content.hero_title) {
-      heroTitle.innerHTML =
-        `${escapeHtml(content.hero_title)}<br>` +
-        `<em>${escapeHtml(content.hero_title_highlight || "")}</em>`;
-    }
-
-    if (heroDescription && content.hero_description) {
-      heroDescription.textContent = content.hero_description;
-    }
+    setText(".hero-eyebrow", data.hero_eyebrow);
+    setText(".hero-title", data.hero_title);
+    setText(".hero-title-highlight", data.hero_title_highlight);
+    setText(".hero-copy", data.hero_description);
 
 
+    // ----------------------------------------------
     // INTRO
-    const introSection = document.querySelector(".intro");
-    const introTitle = introSection?.querySelector("h2");
-    const introDescription = introSection?.querySelector("p");
+    // ----------------------------------------------
 
-    if (introTitle) {
-      introTitle.innerHTML =
-        `${escapeHtml(content.intro_title || "")}<br>` +
-        `<em>${escapeHtml(content.intro_highlight || "")}</em>`;
-    }
-
-    if (introDescription && content.intro_description) {
-      introDescription.textContent = content.intro_description;
-    }
+    setText(".intro-section h2", data.intro_title);
+    setText(".intro-section p", data.intro_description);
 
 
+    // ----------------------------------------------
     // GALLERY
-    const galleryLabel = document.querySelector(".gallery .section-label");
+    // ----------------------------------------------
 
-    if (galleryLabel && content.gallery_title) {
-      galleryLabel.textContent = `02 — ${content.gallery_title}`;
-    }
+    setText("#work .section-label", data.gallery_title);
 
 
+    // ----------------------------------------------
     // SERVICES
-    const servicesLabel = document.querySelector(".services .section-label");
+    // ----------------------------------------------
 
-    if (servicesLabel && content.services_title) {
-      servicesLabel.textContent = `03 — ${content.services_title}`;
-    }
+    setText("#services .section-label", data.services_title);
 
 
+    // ----------------------------------------------
     // ABOUT
-    const aboutSection = document.querySelector(".about");
-    const aboutLabel = aboutSection?.querySelector(".section-label");
-    const aboutDescription = aboutSection?.querySelector(".about-copy p");
+    // ----------------------------------------------
 
-    if (aboutLabel && content.about_title) {
-      aboutLabel.textContent = `04 — ${content.about_title}`;
-    }
-
-    if (aboutDescription && content.about_description) {
-      aboutDescription.textContent = content.about_description;
-    }
+    setText("#about .section-label", data.about_title);
+    setText("#about .about-copy p", data.about_description);
 
 
+    // ----------------------------------------------
     // CONTACT
-    const contactSection = document.querySelector(".contact");
-    const contactEyebrow = contactSection?.querySelector(".eyebrow");
-    const contactTitle = contactSection?.querySelector("h2");
-    const contactDescription = contactSection?.querySelector(
-      ".contact-inner > p:not(.eyebrow):not(.small-note)"
-    );
-    const contactEmailButton = contactSection?.querySelector(
-      'a[href^="mailto:"]'
-    );
+    // ----------------------------------------------
 
-    if (contactEyebrow && content.contact_eyebrow) {
-      contactEyebrow.textContent = content.contact_eyebrow;
-    }
+    setText("#contact .eyebrow", data.contact_eyebrow);
+    setText("#contact h2", data.contact_title);
+    setText("#contact .contact-copy p", data.contact_description);
 
-    if (contactTitle && content.contact_title) {
-      contactTitle.textContent = content.contact_title;
-    }
 
-    if (contactDescription && content.contact_description) {
-      contactDescription.textContent = content.contact_description;
-    }
+    // Contact email
+    if (data.contact_email) {
 
-    if (contactEmailButton && content.contact_email) {
-      contactEmailButton.href =
-        `mailto:${content.contact_email}?subject=Wedding%20Photography%20Enquiry`;
-    }
+      const emailLinks = document.querySelectorAll(
+        '#contact a[href^="mailto:"]'
+      );
 
-    // Hide the old developer note
-    const smallNote = contactSection?.querySelector(".small-note");
+      emailLinks.forEach(link => {
 
-    if (smallNote) {
-      smallNote.style.display = "none";
+        link.href = "mailto:" + data.contact_email;
+
+        // Only replace visible email text,
+        // not the button label.
+        if (
+          link.textContent.includes("@") ||
+          link.textContent.includes("hello")
+        ) {
+          link.textContent = data.contact_email;
+        }
+
+      });
     }
 
 
-    console.log("PREMSNAPS CMS content loaded successfully.");
+    console.log("PREMSNAPS CMS content applied successfully.");
 
   } catch (error) {
 
-    console.error("CMS content not loaded:", error);
+    console.error(
+      "PREMSNAPS CMS content could not be loaded:",
+      error
+    );
 
   }
-
 }
 
 
-// Start CMS loader
-loadCmsContent();
+// Run after page loads
+loadCMSContent();
