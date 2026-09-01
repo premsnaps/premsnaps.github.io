@@ -1368,3 +1368,396 @@ footer {
   }
 
 }
+/* =====================================================
+   PREMSNAPS — INNER PAGE STYLES
+===================================================== */
+
+.page-hero {
+  min-height: 78vh;
+
+  padding:
+    180px
+    8vw
+    100px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  background: var(--paper);
+
+  border-bottom: 1px solid var(--line);
+}
+
+.page-hero h1 {
+  max-width: 1200px;
+
+  margin: 22px 0 30px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(65px, 10vw, 150px);
+
+  font-weight: 400;
+
+  line-height: .76;
+
+  letter-spacing: -4px;
+}
+
+.page-hero h1 em {
+  font-style: italic;
+}
+
+.page-hero p {
+  max-width: 580px;
+
+  margin: 0;
+
+  color: #6f6b65;
+
+  font-size: 13px;
+
+  line-height: 1.9;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact-section {
+  background: var(--paper);
+}
+
+.contact-grid {
+  display: grid;
+
+  grid-template-columns:
+    .8fr
+    1.2fr;
+
+  gap: 100px;
+}
+
+.contact-grid h2 {
+  margin: 25px 0 30px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:
+    clamp(65px, 8vw, 115px);
+
+  font-weight: 400;
+
+  line-height: .78;
+
+  letter-spacing: -3px;
+}
+
+.contact-grid h2 em {
+  font-style: italic;
+}
+
+.contact-grid > div > p {
+  max-width: 470px;
+
+  color: #6d6962;
+
+  font-size: 13px;
+
+  line-height: 1.85;
+}
+
+.contact-direct {
+  margin-top: 55px;
+
+  border-top:
+    1px solid
+    var(--line);
+}
+
+.contact-direct a {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 20px 0;
+
+  border-bottom:
+    1px solid
+    var(--line);
+
+  transition:
+    padding .3s ease;
+}
+
+.contact-direct a:hover {
+  padding-left: 8px;
+}
+
+.contact-direct span {
+  font-size: 8px;
+
+  letter-spacing: 2px;
+}
+
+.contact-direct strong {
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 23px;
+
+  font-weight: 400;
+}
+
+.contact-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.contact-form .form-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.contact-form label {
+  font-size: 8px;
+
+  letter-spacing: 1.7px;
+
+  text-transform: uppercase;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+
+  padding: 16px;
+
+  border:
+    1px solid
+    var(--line);
+
+  background:
+    rgba(255,255,255,.45);
+
+  outline: none;
+
+  font-size: 13px;
+
+  transition:
+    border .25s ease;
+}
+
+.contact-form textarea {
+  min-height: 170px;
+
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color:
+    var(--ink);
+}
+
+.contact-form button {
+  align-self: flex-start;
+
+  cursor: pointer;
+}
+
+
+/* =====================================================
+   QUICK CONTACT
+===================================================== */
+
+.contact-quick-links {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+
+/* =====================================================
+   PAGE TRANSITION
+===================================================== */
+
+body {
+  animation:
+    pageFade .7s ease both;
+}
+
+@keyframes pageFade {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+/* =====================================================
+   IMAGE LOADING
+===================================================== */
+
+.gallery-item img,
+.film-card img {
+  background:
+    linear-gradient(
+      90deg,
+      #202020,
+      #2a2927,
+      #202020
+    );
+
+  background-size: 200% 100%;
+
+  animation:
+    imageShimmer 1.7s
+    infinite;
+}
+
+@keyframes imageShimmer {
+
+  0% {
+    background-position:
+      200% 0;
+  }
+
+  100% {
+    background-position:
+      -200% 0;
+  }
+
+}
+
+
+/* =====================================================
+   BETTER HOVER EFFECTS
+===================================================== */
+
+.gallery-item,
+.film-card,
+.service-row,
+.quote-option {
+  will-change:
+    transform;
+}
+
+.gallery-item:hover {
+  z-index: 5;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+  .page-hero {
+    min-height: 65vh;
+
+    padding:
+      145px
+      25px
+      80px;
+  }
+
+  .page-hero h1 {
+    font-size:
+      clamp(60px, 12vw, 100px);
+
+    letter-spacing: -2px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+
+    gap: 65px;
+  }
+
+  .contact-grid h2 {
+    font-size: 75px;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .page-hero {
+    min-height: 62vh;
+
+    padding:
+      130px
+      20px
+      65px;
+  }
+
+  .page-hero h1 {
+    font-size: 57px;
+
+    line-height: .8;
+  }
+
+  .page-hero p {
+    font-size: 12px;
+  }
+
+  .contact-grid h2 {
+    font-size: 62px;
+
+    letter-spacing: -1.5px;
+  }
+
+  .contact-direct a {
+    display: block;
+  }
+
+  .contact-direct strong {
+    display: block;
+
+    margin-top: 7px;
+  }
+
+  .contact-quick-links {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .contact-quick-links .button {
+    width: 100%;
+  }
+
+}
