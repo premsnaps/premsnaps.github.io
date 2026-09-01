@@ -1,484 +1,1047 @@
 /* =========================================================
-   PREMSNAPS - GOOGLE DRIVE GALLERY
-   Photos + Videos
+   PREMSNAPS
+   CMS + RECURSIVE GOOGLE DRIVE GALLERY
    ========================================================= */
 
 
-/* ================= GOOGLE DRIVE SETTINGS ================= */
+/* =========================================================
+   GOOGLE DRIVE SETTINGS
+   ========================================================= */
 
 const DRIVE_API_KEY = "AIzaSyBYk83Ua9JRRmV_oPwl89I6O74EXflH9sw";
 
-const DRIVE_FOLDER_ID =
-    "1GhS35bFfeKQNENi81UcZ4WgX-vh2TlNe";
+const DRIVE_ROOT_FOLDER_ID =
+  "1GhS35bFfeKQNENi81UcZ4WgX-vh2TlNe";
 
 
-/* ================= ELEMENTS ================= */
+/* =========================================================
+   AUTOMATIC YEAR
+   ========================================================= */
 
-const gallery =
-    document.getElementById("drive-gallery");
+const year = document.getElementById("year");
 
-const galleryCount =
-    document.getElementById("gallery-count");
-
-const lightbox =
-    document.getElementById("lightbox");
-
-const lightboxContent =
-    document.getElementById("lightbox-content");
-
-const lightboxClose =
-    document.getElementById("lightbox-close");
-
-
-/* ================= PAGE YEAR ================= */
-
-const year =
-    document.getElementById("year");
-
-if(year){
-    year.textContent =
-        new Date().getFullYear();
+if (year) {
+  year.textContent = new Date().getFullYear();
 }
 
 
-/* ================= DRIVE API ================= */
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
 
-async function loadDriveGallery(){
+const menu = document.querySelector(".menu");
+const nav = document.querySelector(".nav nav");
 
-    if(
-        !DRIVE_API_KEY ||
-        DRIVE_API_KEY === "PASTE_YOUR_API_KEY_HERE"
-    ){
+if (menu && nav) {
 
-        gallery.innerHTML = `
-            <div class="drive-loading">
-                Google Drive API key is missing.
-            </div>
-        `;
+  menu.addEventListener("click", () => {
 
-        galleryCount.textContent =
-            "API KEY REQUIRED";
+    nav.style.display =
+      nav.style.display === "flex"
+        ? "none"
+        : "flex";
+
+    if (
+      window.innerWidth <= 800 &&
+      nav.style.display === "flex"
+    ) {
+
+      nav.style.position = "absolute";
+      nav.style.top = "70px";
+      nav.style.left = "0";
+      nav.style.right = "0";
+      nav.style.padding = "22px 7vw";
+      nav.style.background = "#f5f2ed";
+      nav.style.flexDirection = "column";
+      nav.style.alignItems = "flex-start";
+
+    }
+
+  });
+
+}
+
+
+/* =========================================================
+   SVELTIA CMS
+   ========================================================= */
+
+async function loadCMSContent() {
+
+  try {
+
+    const cmsURL =
+      "https://raw.githubusercontent.com/premsnaps/premsnaps.github.io/main/content/pages/home.md?cb=" +
+      Date.now();
+
+    const response =
+      await fetch(cmsURL, {
+        cache: "no-store"
+      });
+
+    if (!response.ok) {
+      throw new Error("CMS file could not be loaded");
+    }
+
+    const markdown =
+      await response.text();
+
+    console.log(
+      "PREMSNAPS CMS file loaded."
+    );
+
+
+    const match =
+      markdown.match(/^---\s*([\s\S]*?)\s*---/);
+
+    if (!match) {
+      console.error(
+        "CMS YAML front matter not found."
+      );
+      return;
+    }
+
+
+    const yaml =
+      match[1];
+
+    const data = {};
+
+
+    yaml.split("\n").forEach(line => {
+
+      const separator =
+        line.indexOf(":");
+
+      if (separator === -1) return;
+
+      const key =
+        line.slice(0, separator).trim();
+
+      let value =
+        line.slice(separator + 1).trim();
+
+
+      if (
+        (value.startsWith('"') &&
+         value.endsWith('"')) ||
+        (value.startsWith("'") &&
+         value.endsWith("'"))
+      ) {
+
+        value =
+          value.slice(1, -1);
+
+      }
+
+
+      data[key] = value;
+
+    });
+
+
+    function setText(selector, value) {
+
+      if (!value) return;
+
+      const element =
+        document.querySelector(selector);
+
+      if (element) {
+        element.textContent = value;
+      }
+
+    }
+
+
+    /* HERO */
+
+    setText(
+      ".hero .eyebrow",
+      data.hero_eyebrow
+    );
+
+
+    const heroTitle =
+      document.querySelector(
+        ".hero-content h1"
+      );
+
+
+    if (heroTitle) {
+
+      const title =
+        data.hero_title || "";
+
+      const highlight =
+        data.hero_title_highlight || "";
+
+
+      if (highlight) {
+
+        heroTitle.innerHTML =
+          escapeHTML(title) +
+          "<br><em>" +
+          escapeHTML(highlight) +
+          "</em>";
+
+      } else {
+
+        heroTitle.textContent =
+          title;
+
+      }
+
+    }
+
+
+    setText(
+      ".hero-copy",
+      data.hero_description
+    );
+
+
+    /* INTRO */
+
+    const introTitle =
+      document.querySelector(
+        ".intro h2"
+      );
+
+
+    if (
+      introTitle &&
+      data.intro_title &&
+      data.intro_highlight
+    ) {
+
+      introTitle.innerHTML =
+        escapeHTML(data.intro_title) +
+        " <em>" +
+        escapeHTML(data.intro_highlight) +
+        "</em>";
+
+    }
+
+
+    setText(
+      ".intro p",
+      data.intro_description
+    );
+
+
+    /* GALLERY */
+
+    setText(
+      ".gallery .section-label",
+      data.gallery_title
+    );
+
+
+    /* SERVICES */
+
+    setText(
+      ".services .section-label",
+      data.services_title
+    );
+
+
+    /* ABOUT */
+
+    setText(
+      ".about .section-label",
+      data.about_title
+    );
+
+
+    setText(
+      ".about .about-copy p",
+      data.about_description
+    );
+
+
+    /* CONTACT */
+
+    setText(
+      ".contact .eyebrow",
+      data.contact_eyebrow
+    );
+
+
+    setText(
+      ".contact h2",
+      data.contact_title
+    );
+
+
+    setText(
+      ".contact-inner > p:not(.eyebrow):not(.small-note)",
+      data.contact_description
+    );
+
+
+    /* EMAIL */
+
+    if (data.contact_email) {
+
+      const emailLinks =
+        document.querySelectorAll(
+          'a[href^="mailto:"]'
+        );
+
+
+      emailLinks.forEach(link => {
+
+        link.href =
+          "mailto:" +
+          data.contact_email;
+
+
+        if (
+          link.textContent.includes("@") ||
+          link.textContent
+            .toLowerCase()
+            .includes("hello")
+        ) {
+
+          link.textContent =
+            data.contact_email;
+
+        }
+
+      });
+
+    }
+
+
+    console.log(
+      "PREMSNAPS CMS content applied successfully."
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "PREMSNAPS CMS content could not be loaded:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   GOOGLE DRIVE API
+   ========================================================= */
+
+async function getDriveChildren(folderId) {
+
+  let files = [];
+  let pageToken = "";
+
+
+  do {
+
+    const params =
+      new URLSearchParams({
+
+        q:
+          `'${folderId}' in parents and trashed = false`,
+
+        pageSize: "1000",
+
+        fields:
+          "nextPageToken,files(id,name,mimeType,createdTime,modifiedTime)",
+
+        orderBy:
+          "createdTime desc",
+
+        key:
+          DRIVE_API_KEY
+
+      });
+
+
+    if (pageToken) {
+      params.set(
+        "pageToken",
+        pageToken
+      );
+    }
+
+
+    const response =
+      await fetch(
+        "https://www.googleapis.com/drive/v3/files?" +
+        params.toString()
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Google Drive API error: " +
+        response.status
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    if (data.files) {
+
+      files =
+        files.concat(data.files);
+
+    }
+
+
+    pageToken =
+      data.nextPageToken || "";
+
+
+  } while (pageToken);
+
+
+  return files;
+
+}
+
+
+/* =========================================================
+   RECURSIVE FOLDER SCANNER
+   ========================================================= */
+
+async function getAllDriveMedia() {
+
+  const media = [];
+
+  const foldersToScan = [
+    DRIVE_ROOT_FOLDER_ID
+  ];
+
+
+  while (foldersToScan.length > 0) {
+
+    const currentFolder =
+      foldersToScan.shift();
+
+
+    const children =
+      await getDriveChildren(
+        currentFolder
+      );
+
+
+    children.forEach(file => {
+
+      /* FOLDER */
+
+      if (
+        file.mimeType ===
+        "application/vnd.google-apps.folder"
+      ) {
+
+        foldersToScan.push(
+          file.id
+        );
 
         return;
-    }
 
+      }
 
-    try{
 
-        const query =
-            `'${DRIVE_FOLDER_ID}' in parents and trashed = false`;
+      /* IMAGE */
 
+      if (
+        file.mimeType &&
+        file.mimeType.startsWith("image/")
+      ) {
 
-        const url =
-            "https://www.googleapis.com/drive/v3/files" +
-            "?q=" + encodeURIComponent(query) +
-            "&pageSize=1000" +
-            "&orderBy=createdTime desc" +
-            "&fields=files(id,name,mimeType,thumbnailLink,createdTime,size)" +
-            "&key=" + encodeURIComponent(DRIVE_API_KEY);
+        media.push(file);
 
+        return;
 
-        const response =
-            await fetch(url);
+      }
 
 
-        if(!response.ok){
+      /* VIDEO */
 
-            throw new Error(
-                "Google Drive API error: " +
-                response.status
-            );
+      if (
+        file.mimeType &&
+        file.mimeType.startsWith("video/")
+      ) {
 
-        }
+        media.push(file);
 
+      }
 
-        const data =
-            await response.json();
+    });
 
+  }
 
-        console.log(
-            "PREMSNAPS DRIVE FILES:",
-            data
-        );
 
-
-        const files =
-            data.files || [];
-
-
-        if(files.length === 0){
-
-            gallery.innerHTML = `
-                <div class="drive-loading">
-                    No photos or videos found.
-                </div>
-            `;
-
-            galleryCount.textContent =
-                "0 STORIES";
-
-            return;
-        }
-
-
-        gallery.innerHTML = "";
-
-
-        let photoCount = 0;
-        let videoCount = 0;
-
-
-        files.forEach(file => {
-
-            const mime =
-                file.mimeType || "";
-
-
-            /* ================= IMAGE ================= */
-
-            if(mime.startsWith("image/")){
-
-                photoCount++;
-
-
-                const card =
-                    document.createElement("figure");
-
-
-                card.className =
-                    "drive-card";
-
-
-                const img =
-                    document.createElement("img");
-
-
-                /*
-                   Google Drive thumbnail.
-                   This is much faster than downloading
-                   the original image.
-                */
-
-                img.src =
-                    "https://drive.google.com/thumbnail?id=" +
-                    encodeURIComponent(file.id) +
-                    "&sz=w1400";
-
-
-                img.alt =
-                    file.name || "PREMSNAPS Wedding";
-
-
-                img.loading =
-                    "lazy";
-
-
-                img.addEventListener(
-                    "click",
-                    () => openImage(file)
-                );
-
-
-                const name =
-                    document.createElement("div");
-
-
-                name.className =
-                    "file-name";
-
-
-                name.textContent =
-                    file.name || "";
-
-
-                card.appendChild(img);
-
-                card.appendChild(name);
-
-                gallery.appendChild(card);
-
-            }
-
-
-            /* ================= VIDEO ================= */
-
-            else if(mime.startsWith("video/")){
-
-                videoCount++;
-
-
-                const card =
-                    document.createElement("figure");
-
-
-                card.className =
-                    "drive-card video-card";
-
-
-                /*
-                   Google Drive gives us a thumbnail
-                   for videos too.
-                */
-
-                const img =
-                    document.createElement("img");
-
-
-                img.src =
-                    "https://drive.google.com/thumbnail?id=" +
-                    encodeURIComponent(file.id) +
-                    "&sz=w1400";
-
-
-                img.alt =
-                    file.name || "PREMSNAPS Film";
-
-
-                img.loading =
-                    "lazy";
-
-
-                const play =
-                    document.createElement("div");
-
-
-                play.className =
-                    "video-play";
-
-
-                play.innerHTML =
-                    "▶";
-
-
-                const name =
-                    document.createElement("div");
-
-
-                name.className =
-                    "file-name";
-
-
-                name.textContent =
-                    file.name || "";
-
-
-                card.appendChild(img);
-
-                card.appendChild(play);
-
-                card.appendChild(name);
-
-
-                card.addEventListener(
-                    "click",
-                    () => openVideo(file)
-                );
-
-
-                gallery.appendChild(card);
-
-            }
-
-        });
-
-
-        const total =
-            photoCount + videoCount;
-
-
-        galleryCount.textContent =
-            `${total} STORIES • ${photoCount} PHOTOS • ${videoCount} FILMS`;
-
-
-        if(total === 0){
-
-            gallery.innerHTML = `
-                <div class="drive-loading">
-                    No supported photos or videos found.
-                </div>
-            `;
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(
-            "PREMSNAPS DRIVE ERROR:",
-            error
-        );
-
-
-        gallery.innerHTML = `
-            <div class="drive-loading">
-                Unable to load our stories.
-                <br><br>
-                <small>
-                    Please check the Google Drive API key
-                    and folder permissions.
-                </small>
-            </div>
-        `;
-
-
-        galleryCount.textContent =
-            "GALLERY ERROR";
-
-    }
+  return media;
 
 }
 
 
-/* ================= IMAGE LIGHTBOX ================= */
+/* =========================================================
+   DRIVE GALLERY
+   ========================================================= */
 
-function openImage(file){
+async function loadDriveGallery() {
 
-    lightboxContent.innerHTML = "";
-
-
-    const img =
-        document.createElement("img");
-
-
-    img.src =
-        "https://drive.google.com/thumbnail?id=" +
-        encodeURIComponent(file.id) +
-        "&sz=w2400";
-
-
-    img.alt =
-        file.name || "PREMSNAPS";
-
-
-    lightboxContent.appendChild(img);
-
-
-    lightbox.classList.add("active");
-
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-/* ================= VIDEO PLAYER ================= */
-
-function openVideo(file){
-
-    lightboxContent.innerHTML = "";
-
-
-    const video =
-        document.createElement("video");
-
-
-    /*
-       Google Drive API media endpoint.
-       This allows the browser to request
-       the actual video file.
-    */
-
-    video.src =
-        "https://www.googleapis.com/drive/v3/files/" +
-        encodeURIComponent(file.id) +
-        "?alt=media&key=" +
-        encodeURIComponent(DRIVE_API_KEY);
-
-
-    video.controls =
-        true;
-
-
-    video.autoplay =
-        true;
-
-
-    video.playsInline =
-        true;
-
-
-    video.preload =
-        "metadata";
-
-
-    video.setAttribute(
-        "aria-label",
-        file.name || "PREMSNAPS Wedding Film"
+  const gallery =
+    document.getElementById(
+      "drive-gallery"
     );
 
 
-    lightboxContent.appendChild(video);
+  if (!gallery) return;
 
 
-    lightbox.classList.add("active");
+  if (
+    !DRIVE_API_KEY ||
+    DRIVE_API_KEY ===
+      "PASTE_YOUR_API_KEY_HERE"
+  ) {
+
+    gallery.innerHTML =
+      '<div class="drive-loading">' +
+      "Google Drive API key is missing." +
+      "</div>";
+
+    return;
+
+  }
 
 
-    document.body.style.overflow =
-        "hidden";
+  try {
 
-}
+    gallery.innerHTML =
+      '<div class="drive-loading">' +
+      "Loading our stories..." +
+      "</div>";
 
 
-/* ================= CLOSE LIGHTBOX ================= */
-
-function closeLightbox(){
-
-    lightbox.classList.remove(
-        "active"
+    console.log(
+      "PREMSNAPS: Scanning Google Drive..."
     );
 
 
-    lightboxContent.innerHTML =
-        "";
+    const files =
+      await getAllDriveMedia();
 
 
-    document.body.style.overflow =
-        "";
+    console.log(
+      "PREMSNAPS: Media found:",
+      files
+    );
+
+
+    gallery.innerHTML = "";
+
+
+    if (!files.length) {
+
+      gallery.innerHTML =
+        '<div class="drive-loading">' +
+        "No photos or videos found." +
+        "</div>";
+
+      return;
+
+    }
+
+
+    let photos = 0;
+    let videos = 0;
+
+
+    files.forEach(file => {
+
+      const item =
+        document.createElement(
+          "figure"
+        );
+
+
+      item.className =
+        "card drive-card";
+
+
+      /* =================================================
+         PHOTO
+         ================================================= */
+
+      if (
+        file.mimeType.startsWith(
+          "image/"
+        )
+      ) {
+
+        photos++;
+
+
+        const img =
+          document.createElement(
+            "img"
+          );
+
+
+        img.src =
+          "https://drive.google.com/thumbnail?id=" +
+          encodeURIComponent(file.id) +
+          "&sz=w1600";
+
+
+        img.alt =
+          file.name ||
+          "PREMSNAPS Wedding Photography";
+
+
+        img.loading =
+          "lazy";
+
+
+        item.appendChild(img);
+
+
+        item.addEventListener(
+          "click",
+          () => openPhoto(file)
+        );
+
+      }
+
+
+      /* =================================================
+         VIDEO
+         ================================================= */
+
+      else if (
+        file.mimeType.startsWith(
+          "video/"
+        )
+      ) {
+
+        videos++;
+
+
+        const wrapper =
+          document.createElement(
+            "div"
+          );
+
+
+        wrapper.style.position =
+          "relative";
+
+
+        const thumbnail =
+          document.createElement(
+            "img"
+          );
+
+
+        thumbnail.src =
+          "https://drive.google.com/thumbnail?id=" +
+          encodeURIComponent(file.id) +
+          "&sz=w1600";
+
+
+        thumbnail.alt =
+          file.name ||
+          "PREMSNAPS Cinematic Film";
+
+
+        thumbnail.loading =
+          "lazy";
+
+
+        wrapper.appendChild(
+          thumbnail
+        );
+
+
+        const play =
+          document.createElement(
+            "div"
+          );
+
+
+        play.innerHTML =
+          "▶";
+
+
+        play.style.position =
+          "absolute";
+
+
+        play.style.left =
+          "50%";
+
+
+        play.style.top =
+          "50%";
+
+
+        play.style.transform =
+          "translate(-50%,-50%)";
+
+
+        play.style.width =
+          "65px";
+
+
+        play.style.height =
+          "65px";
+
+
+        play.style.border =
+          "1px solid rgba(255,255,255,.8)";
+
+
+        play.style.borderRadius =
+          "50%";
+
+
+        play.style.display =
+          "flex";
+
+
+        play.style.alignItems =
+          "center";
+
+
+        play.style.justifyContent =
+          "center";
+
+
+        play.style.color =
+          "#fff";
+
+
+        play.style.background =
+          "rgba(0,0,0,.35)";
+
+
+        wrapper.appendChild(
+          play
+        );
+
+
+        item.appendChild(
+          wrapper
+        );
+
+
+        item.addEventListener(
+          "click",
+          () => openVideo(file)
+        );
+
+      }
+
+
+      gallery.appendChild(
+        item
+      );
+
+    });
+
+
+    console.log(
+      `PREMSNAPS: ${photos} photos, ${videos} videos`
+    );
+
+  }
+
+  catch(error) {
+
+    console.error(
+      "PREMSNAPS DRIVE ERROR:",
+      error
+    );
+
+
+    gallery.innerHTML =
+      '<div class="drive-loading">' +
+      "Unable to load our stories." +
+      "<br><br>" +
+      "<small>" +
+      "Please check the Google Drive API key " +
+      "and folder sharing." +
+      "</small>" +
+      "</div>";
+
+  }
 
 }
 
 
-lightboxClose.addEventListener(
+/* =========================================================
+   PHOTO VIEW
+   ========================================================= */
+
+function openPhoto(file) {
+
+  const overlay =
+    document.createElement(
+      "div"
+    );
+
+
+  overlay.style.position =
+    "fixed";
+
+  overlay.style.inset =
+    "0";
+
+  overlay.style.zIndex =
+    "99999";
+
+  overlay.style.background =
+    "rgba(0,0,0,.96)";
+
+  overlay.style.display =
+    "flex";
+
+  overlay.style.alignItems =
+    "center";
+
+  overlay.style.justifyContent =
+    "center";
+
+  overlay.style.padding =
+    "30px";
+
+  overlay.style.cursor =
+    "zoom-out";
+
+
+  const img =
+    document.createElement(
+      "img"
+    );
+
+
+  img.src =
+    "https://drive.google.com/thumbnail?id=" +
+    encodeURIComponent(file.id) +
+    "&sz=w2400";
+
+
+  img.alt =
+    file.name || "";
+
+
+  img.style.maxWidth =
+    "95vw";
+
+  img.style.maxHeight =
+    "92vh";
+
+  img.style.objectFit =
+    "contain";
+
+
+  overlay.appendChild(
+    img
+  );
+
+
+  overlay.addEventListener(
     "click",
-    closeLightbox
-);
+    () => {
+
+      overlay.remove();
+
+      document.body.style.overflow =
+        "";
+
+    }
+  );
 
 
-lightbox.addEventListener(
+  document.body.appendChild(
+    overlay
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+/* =========================================================
+   VIDEO VIEW
+   ========================================================= */
+
+function openVideo(file) {
+
+  const overlay =
+    document.createElement(
+      "div"
+    );
+
+
+  overlay.style.position =
+    "fixed";
+
+  overlay.style.inset =
+    "0";
+
+  overlay.style.zIndex =
+    "99999";
+
+  overlay.style.background =
+    "rgba(0,0,0,.97)";
+
+  overlay.style.display =
+    "flex";
+
+  overlay.style.alignItems =
+    "center";
+
+  overlay.style.justifyContent =
+    "center";
+
+  overlay.style.padding =
+    "20px";
+
+
+  const video =
+    document.createElement(
+      "video"
+    );
+
+
+  video.src =
+    "https://www.googleapis.com/drive/v3/files/" +
+    encodeURIComponent(file.id) +
+    "?alt=media&key=" +
+    encodeURIComponent(
+      DRIVE_API_KEY
+    );
+
+
+  video.controls =
+    true;
+
+  video.autoplay =
+    true;
+
+  video.playsInline =
+    true;
+
+  video.preload =
+    "metadata";
+
+
+  video.style.maxWidth =
+    "95vw";
+
+  video.style.maxHeight =
+    "92vh";
+
+
+  overlay.appendChild(
+    video
+  );
+
+
+  overlay.addEventListener(
     "click",
     event => {
 
-        if(event.target === lightbox){
+      if (
+        event.target === overlay
+      ) {
 
-            closeLightbox();
+        video.pause();
 
-        }
+        overlay.remove();
+
+        document.body.style.overflow =
+          "";
+
+      }
 
     }
-);
+  );
 
 
-/* ================= ESC KEY ================= */
+  document.body.appendChild(
+    overlay
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+/* =========================================================
+   ESC CLOSE VIDEO / PHOTO
+   ========================================================= */
 
 document.addEventListener(
-    "keydown",
-    event => {
+  "keydown",
+  event => {
 
-        if(
-            event.key === "Escape" &&
-            lightbox.classList.contains("active")
-        ){
+    if (
+      event.key === "Escape"
+    ) {
 
-            closeLightbox();
+      const overlays =
+        document.querySelectorAll(
+          'body > div[style*="99999"]'
+        );
 
-        }
+
+      overlays.forEach(
+        overlay => overlay.remove()
+      );
+
+
+      document.body.style.overflow =
+        "";
 
     }
+
+  }
 );
 
 
-/* ================= START ================= */
+/* =========================================================
+   START EVERYTHING
+   ========================================================= */
+
+loadCMSContent();
 
 loadDriveGallery();
