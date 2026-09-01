@@ -1,8 +1,8 @@
 ---
 title: Home
-hero_eyebrow: WEDDING PHOTOGRAPHY • FILMS • STORIES
-hero_title: Prem Sahitya
-hero_title_highlight: forever.
+hero_eyebrow: Your Wedding Films Our Responsiblity
+hero_title: Prem Snaps
+hero_title_highlight: Wedding Photography
 hero_description: Authentic, elegant and cinematic wedding memories — photographed with feeling, not just frames.
 intro_title: Beautifully real.
 intro_highlight: Forever yours.
