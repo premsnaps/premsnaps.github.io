@@ -42,9 +42,13 @@ async function loadCMSContent() {
       "https://raw.githubusercontent.com/premsnaps/premsnaps.github.io/main/content/pages/home.md?cb=" +
       Date.now();
 
-    const response = await fetch(cmsURL, {
-      cache: "no-store"
-    });
+    const cmsURL =
+  "https://raw.githubusercontent.com/premsnaps/premsnaps.github.io/main/content/pages/home.md?cb=" +
+  Date.now();
+
+const response = await fetch(cmsURL, {
+  cache: "no-store"
+});
 
     if (!response.ok) {
       throw new Error("CMS file could not be loaded");
