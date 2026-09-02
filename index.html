@@ -1,1962 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PREMSNAPS.IN — Wedding Photography</title>
-
-<meta name="description" content="PREMSNAPS.IN — Wedding Photography & Films. Honest photographs, cinematic films and memories that stay.">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-
-<style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    background:#080808;
-    color:#fff;
-    font-family:"DM Sans",sans-serif;
-    overflow-x:hidden;
-}
-
-a{
-    color:inherit;
-}
-
-
-/* =====================================================
-   LOADER
-===================================================== */
-
-.loader{
-    position:fixed;
-    inset:0;
-    background:#080808;
-    z-index:99999;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    transition:
-        opacity .8s ease,
-        visibility .8s ease;
-}
-
-.loader.hide{
-    opacity:0;
-    visibility:hidden;
-}
-
-.loader-logo{
-    font-family:"Playfair Display",serif;
-    font-size:25px;
-    letter-spacing:5px;
-}
-
-
-/* =====================================================
-   NAVBAR
-===================================================== */
-
-.navbar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-
-    padding:26px 4vw;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    z-index:5000;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.65),
-            transparent
-        );
-}
-
-.logo{
-    text-decoration:none;
-
-    font-family:"Playfair Display",serif;
-
-    font-size:20px;
-
-    letter-spacing:4px;
-
-    color:#fff;
-}
-
-.nav-links{
-    display:flex;
-    align-items:center;
-    gap:31px;
-}
-
-.nav-links a{
-    text-decoration:none;
-
-    font-size:9px;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-    opacity:.78;
-
-    transition:.3s;
-}
-
-.nav-links a:hover{
-    opacity:1;
-}
-
-.nav-talk{
-    border:1px solid rgba(255,255,255,.35);
-
-    padding:12px 20px;
-
-    opacity:1 !important;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero{
-    position:relative;
-
-    min-height:100vh;
-
-    display:flex;
-    align-items:center;
-
-    padding:
-        130px
-        8vw
-        80px;
-
-    overflow:hidden;
-}
-
-.hero-photo{
-    position:absolute;
-
-    inset:0;
-
-    z-index:-3;
-
-    background:
-        #090909
-        center
-        center
-        /
-        cover
-        no-repeat;
-
-    transform:scale(1.06);
-
-    animation:
-        heroZoom 12s
-        cubic-bezier(.2,.7,.2,1)
-        forwards;
-}
-
-.hero-overlay{
-    position:absolute;
-
-    inset:0;
-
-    z-index:-2;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.72),
-            rgba(0,0,0,.32),
-            rgba(0,0,0,.12)
-        ),
-        linear-gradient(
-            0deg,
-            rgba(0,0,0,.58),
-            transparent 65%
-        );
-}
-
-.hero-content{
-    width:100%;
-    max-width:1200px;
-}
-
-.eyebrow{
-    margin-bottom:27px;
-
-    font-size:9px;
-
-    letter-spacing:4px;
-
-    text-transform:uppercase;
-
-    color:#ddd;
-
-    opacity:0;
-
-    animation:
-        fadeUp 1s .35s forwards;
-}
-
-.hero-title{
-    font-family:"Playfair Display",serif;
-
-    font-size:
-        clamp(
-            56px,
-            8.2vw,
-            130px
-        );
-
-    font-weight:400;
-
-    line-height:.89;
-
-    letter-spacing:-5px;
-}
-
-.hero-line{
-    display:block;
-
-    opacity:0;
-
-    transform:translateY(50px);
-
-    animation:
-        heroText 1.1s forwards;
-}
-
-.hero-line:nth-child(1){
-    animation-delay:.5s;
-}
-
-.hero-line:nth-child(2){
-    animation-delay:.7s;
-}
-
-.free{
-    color:#d9b477;
-
-    font-style:italic;
-}
-
-.hero-bottom{
-    max-width:1050px;
-
-    margin-top:55px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:flex-end;
-
-    opacity:0;
-
-    animation:
-        fadeUp 1s 1.2s forwards;
-}
-
-.hero-description{
-    color:#eee;
-
-    font-size:12px;
-
-    line-height:1.85;
-}
-
-.hero-description span{
-    color:#aaa;
-}
-
-.explore{
-    text-decoration:none;
-
-    text-transform:uppercase;
-
-    font-size:9px;
-
-    letter-spacing:3px;
-
-    padding-bottom:12px;
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.65);
-
-    transition:.4s;
-}
-
-.explore:hover{
-    letter-spacing:4px;
-
-    color:#d9b477;
-
-    border-color:#d9b477;
-}
-
-.scroll{
-    position:absolute;
-
-    right:4vw;
-
-    bottom:55px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:13px;
-
-    font-size:8px;
-
-    letter-spacing:4px;
-
-    color:#aaa;
-
-    writing-mode:vertical-rl;
-}
-
-.scroll-line{
-    width:1px;
-
-    height:55px;
-
-    background:#aaa;
-}
-
-
-/* =====================================================
-   HIGHLIGHTS SECTION
-===================================================== */
-
-.highlights{
-    background:#080808;
-
-    padding:
-        125px
-        6vw
-        140px;
-}
-
-.section-heading{
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:space-between;
-
-    margin-bottom:62px;
-}
-
-.section-label{
-    color:#999;
-
-    font-size:9px;
-
-    letter-spacing:4px;
-
-    text-transform:uppercase;
-
-    margin-bottom:15px;
-}
-
-.section-title{
-    font-family:"Playfair Display",serif;
-
-    font-size:
-        clamp(
-            50px,
-            6vw,
-            90px
-        );
-
-    font-weight:400;
-
-    line-height:.95;
-}
-
-.section-title em{
-    color:#d9b477;
-}
-
-
-/* =====================================================
-   GALLERY
-===================================================== */
-
-.gallery{
-    display:grid;
-
-    grid-template-columns:
-        repeat(12,1fr);
-
-    gap:12px;
-}
-
-.gallery-item{
-    position:relative;
-
-    overflow:hidden;
-
-    background:#151515;
-
-    min-height:420px;
-
-    border-radius:2px;
-
-    opacity:0;
-
-    transform:
-        translateY(55px)
-        scale(.98);
-
-    transition:
-        opacity 1s ease,
-        transform 1s cubic-bezier(.2,.7,.2,1);
-}
-
-.gallery-item.show{
-    opacity:1;
-
-    transform:
-        translateY(0)
-        scale(1);
-}
-
-
-/* Editorial grid */
-
-.gallery-item:nth-child(1){
-    grid-column:span 6;
-}
-
-.gallery-item:nth-child(2){
-    grid-column:span 3;
-}
-
-.gallery-item:nth-child(3){
-    grid-column:span 3;
-}
-
-.gallery-item:nth-child(4){
-    grid-column:span 4;
-}
-
-.gallery-item:nth-child(5){
-    grid-column:span 5;
-}
-
-.gallery-item:nth-child(6){
-    grid-column:span 3;
-}
-
-.gallery-item:nth-child(7){
-    grid-column:span 3;
-}
-
-.gallery-item:nth-child(8){
-    grid-column:span 4;
-}
-
-.gallery-item:nth-child(9){
-    grid-column:span 5;
-}
-
-.gallery-item:nth-child(10){
-    grid-column:span 4;
-}
-
-.gallery-item:nth-child(n+11){
-    grid-column:span 3;
-}
-
-.gallery-item img{
-    width:100%;
-
-    height:100%;
-
-    min-height:420px;
-
-    display:block;
-
-    object-fit:cover;
-
-    transition:
-        transform 1.2s
-        cubic-bezier(.2,.7,.2,1),
-        filter .7s ease;
-}
-
-.gallery-item:hover img{
-    transform:scale(1.07);
-
-    filter:brightness(.72);
-}
-
-.photo-number{
-    position:absolute;
-
-    left:15px;
-    top:15px;
-
-    z-index:2;
-
-    padding:7px 9px;
-
-    background:
-        rgba(0,0,0,.45);
-
-    backdrop-filter:blur(8px);
-
-    font-size:8px;
-
-    letter-spacing:2px;
-}
-
-.photo-name{
-    position:absolute;
-
-    left:18px;
-    bottom:16px;
-
-    z-index:2;
-
-    color:#fff;
-
-    font-size:8px;
-
-    letter-spacing:1px;
-
-    opacity:0;
-
-    transform:translateY(10px);
-
-    transition:.4s;
-}
-
-.gallery-item:hover .photo-name{
-    opacity:1;
-
-    transform:translateY(0);
-}
-
-
-/* =====================================================
-   LOAD MORE
-===================================================== */
-
-.load-more-wrap{
-    text-align:center;
-
-    margin-top:55px;
-}
-
-.load-more{
-    background:transparent;
-
-    color:#fff;
-
-    border:
-        1px solid
-        rgba(255,255,255,.45);
-
-    padding:
-        16px
-        30px;
-
-    cursor:pointer;
-
-    font-family:"DM Sans",sans-serif;
-
-    font-size:9px;
-
-    letter-spacing:3px;
-
-    text-transform:uppercase;
-
-    transition:.4s;
-}
-
-.load-more:hover{
-    background:#fff;
-
-    color:#080808;
-}
-
-.gallery-note{
-    margin-top:20px;
-
-    color:#666;
-
-    font-size:10px;
-
-    letter-spacing:1px;
-}
-
-
-/* =====================================================
-   CONTACT
-===================================================== */
-
-.contact{
-    min-height:72vh;
-
-    padding:
-        120px
-        6vw;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.contact-glow{
-    position:absolute;
-
-    width:650px;
-    height:650px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(217,180,119,.10),
-            transparent 67%
-        );
-}
-
-.contact-content{
-    position:relative;
-
-    z-index:2;
-
-    max-width:900px;
-}
-
-.contact-label{
-    color:#888;
-
-    font-size:9px;
-
-    letter-spacing:4px;
-
-    text-transform:uppercase;
-
-    margin-bottom:25px;
-}
-
-.contact-title{
-    font-family:"Playfair Display",serif;
-
-    font-size:
-        clamp(
-            55px,
-            8vw,
-            115px
-        );
-
-    line-height:.94;
-
-    font-weight:400;
-}
-
-.contact-title em{
-    color:#d9b477;
-}
-
-.contact-text{
-    max-width:550px;
-
-    margin:
-        35px
-        auto;
-
-    color:#999;
-
-    font-size:13px;
-
-    line-height:1.9;
-}
-
-.whatsapp-button{
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:13px;
-
-    padding:
-        17px
-        31px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.4);
-
-    text-decoration:none;
-
-    text-transform:uppercase;
-
-    font-size:9px;
-
-    letter-spacing:3px;
-
-    transition:.4s;
-}
-
-.whatsapp-button:hover{
-    background:#25D366;
-
-    border-color:#25D366;
-
-    transform:translateY(-4px);
-}
-
-.whatsapp-button svg{
-    width:21px;
-    height:21px;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer{
-    padding:
-        30px
-        6vw;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.12);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    color:#666;
-
-    font-size:9px;
-
-    letter-spacing:2px;
-}
-
-.footer-logo{
-    color:#fff;
-
-    font-family:"Playfair Display",serif;
-
-    font-size:17px;
-
-    letter-spacing:3px;
-}
-
-
-/* =====================================================
-   FLOATING WHATSAPP
-===================================================== */
-
-.floating-whatsapp{
-    position:fixed;
-
-    right:24px;
-    bottom:24px;
-
-    width:59px;
-    height:59px;
-
-    border-radius:50%;
-
-    background:#25D366;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    z-index:9990;
-
-    box-shadow:
-        0 10px 35px
-        rgba(0,0,0,.45);
-
-    transition:.35s;
-}
-
-.floating-whatsapp:hover{
-    transform:
-        scale(1.1)
-        rotate(-4deg);
-}
-
-.floating-whatsapp svg{
-    width:31px;
-    height:31px;
-}
-
-
-/* =====================================================
-   ERROR / LOADING
-===================================================== */
-
-.gallery-message{
-    grid-column:1/-1;
-
-    min-height:250px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    text-align:center;
-
-    color:#777;
-
-    font-size:12px;
-
-    line-height:2;
-}
-
-.gallery-message strong{
-    color:#fff;
-}
-
-
-/* =====================================================
-   ANIMATIONS
-===================================================== */
-
-@keyframes heroZoom{
-
-    from{
-        transform:scale(1.08);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PREMSNAPS.IN | Photography & Films</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <style>
+    :root {
+      --bg-dark: #070709;
+      --card-bg: #121214;
+      --accent-gold: #f3cf97;
+      --accent-green: #25D366;
+      --text-main: #ffffff;
+      --text-muted: #a3a3ad;
+      --font-serif: 'Cinzel', serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
     }
 
-    to{
-        transform:scale(1);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
     }
 
-}
-
-@keyframes fadeUp{
-
-    from{
-        opacity:0;
-        transform:translateY(25px);
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
     }
 
-    to{
-        opacity:1;
-        transform:translateY(0);
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 7%;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 7, 9, 0.75);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-}
-
-@keyframes heroText{
-
-    to{
-        opacity:1;
-        transform:translateY(0);
+    .brand-logo {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
     }
 
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:768px){
-
-    .navbar{
-        padding:
-            21px
-            5vw;
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2.2rem;
+      align-items: center;
     }
 
-    .logo{
-        font-size:17px;
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      transition: color 0.3s;
     }
 
-    .nav-links{
-        display:none;
+    nav a:hover {
+      color: var(--text-main);
     }
 
-    .hero{
-        min-height:100svh;
-
-        padding:
-            120px
-            6vw
-            70px;
+    .btn-talk {
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 0.5rem 1.3rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
     }
 
-    .hero-title{
-        font-size:
-            clamp(
-                48px,
-                14.5vw,
-                82px
-            );
-
-        letter-spacing:-3px;
+    .btn-talk:hover {
+      background: #ffffff;
+      color: #000000;
     }
 
-    .hero-bottom{
-        display:block;
-
-        margin-top:43px;
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 7%;
+      background: linear-gradient(180deg, rgba(7, 7, 9, 0.5) 0%, rgba(7, 7, 9, 0.95) 100%),
+                  url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920&auto=format&fit=crop') center center / cover no-repeat;
+      background-attachment: fixed;
     }
 
-    .explore{
-        display:inline-block;
-
-        margin-top:30px;
+    .hero-content {
+      max-width: 650px;
+      margin-top: 4rem;
     }
 
-    .scroll{
-        display:none;
+    .tagline {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
     }
 
-    .highlights{
-        padding:
-            90px
-            5vw
-            100px;
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 5.2vw, 4.5rem);
+      line-height: 1.15;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
     }
 
-    .section-heading{
-        display:block;
-
-        margin-bottom:42px;
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent-gold);
     }
 
-    .gallery{
-        grid-template-columns:
-            repeat(2,1fr);
-
-        gap:7px;
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 2.2rem;
+      max-width: 420px;
+      line-height: 1.7;
     }
 
-    .gallery-item,
-    .gallery-item:nth-child(n){
-        grid-column:span 1;
-
-        min-height:260px;
+    .btn-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s;
     }
 
-    .gallery-item:nth-child(3n){
-        grid-column:span 2;
+    .btn-explore:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
     }
 
-    .gallery-item img{
-        min-height:260px;
+    .highlights {
+      padding: 7rem 7% 4rem;
     }
 
-    .photo-name{
-        display:none;
+    .section-header {
+      margin-bottom: 3.5rem;
     }
 
-    .contact{
-        min-height:70vh;
-
-        padding:
-            90px
-            5vw;
+    .section-header span {
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: var(--text-muted);
     }
 
-    .contact-title{
-        font-size:57px;
+    .section-header h2 {
+      font-family: var(--font-serif);
+      font-size: 2.6rem;
+      font-weight: 400;
+      margin-top: 0.4rem;
     }
 
-    .contact-text{
-        font-size:12px;
+    .section-header h2 em {
+      color: var(--accent-gold);
+      font-style: italic;
     }
 
-    footer{
-        flex-direction:column;
-
-        gap:15px;
-
-        text-align:center;
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
     }
 
-    .floating-whatsapp{
-        right:18px;
-        bottom:18px;
-
-        width:56px;
-        height:56px;
+    .photo-card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-}
+    .photo-card.wide {
+      grid-column: span 2;
+    }
 
-</style>
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .contact-cta {
+      padding: 7rem 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      flex-wrap: wrap;
+      gap: 2.5rem;
+    }
+
+    .contact-cta h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      line-height: 1.2;
+      font-weight: 400;
+    }
+
+    .contact-cta h2 em {
+      color: var(--accent-gold);
+      font-style: italic;
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 1rem 2.2rem;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      border-radius: 4px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .whatsapp-btn:hover {
+      border-color: var(--accent-green);
+      background: var(--accent-green);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.28);
+    }
+
+    .floating-wa {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 56px;
+      height: 56px;
+      background: var(--accent-green);
+      color: #fff;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+      z-index: 1000;
+      text-decoration: none;
+      animation: pulse 2s infinite;
+      transition: transform 0.2s;
+    }
+
+    .floating-wa:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+      70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    footer {
+      padding: 2rem 7%;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .photo-card.wide { grid-column: span 1; }
+      nav ul { display: none; }
+      .contact-cta { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-
-
 <body>
 
+  <header>
+    <a href="#" class="brand-logo">PREMSNAPS.IN</a>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#highlights">Highlights</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="https://wa.me/?text=Hello!%20I%20want%20to%20book%20a%20wedding%20shoot." target="_blank" class="btn-talk">Let's Talk</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<!-- =====================================================
-     LOADER
-===================================================== -->
+  <section class="hero">
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+      <p class="tagline">Wedding Photography & Films</p>
+      <h1>Book your wedding. <br>Get <em>Free</em> Pre-Wedding.</h1>
+      <p class="hero-desc">Honest photographs. Cinematic films. Memories that stay with you forever.</p>
+      <a href="#highlights" class="btn-explore">EXPLORE HIGHLIGHTS <i class="fa-solid fa-arrow-down"></i></a>
+    </div>
+  </section>
 
-<div
-class="loader"
-id="loader">
-
-    <div class="loader-logo">
-        PREMSNAPS.IN
+  <section class="highlights" id="highlights">
+    <div class="section-header" data-aos="fade-up">
+      <span>Selected Moments</span>
+      <h2>Wedding <em>Highlights.</em></h2>
     </div>
 
-</div>
-
-
-
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
-
-<nav class="navbar">
-
-    <a
-    href="#home"
-    class="logo">
-
-        PREMSNAPS.IN
-
-    </a>
-
-
-    <div class="nav-links">
-
-        <a href="#home">
-            Home
-        </a>
-
-        <a href="#highlights">
-            Highlights
-        </a>
-
-        <a href="#contact">
-            Contact
-        </a>
-
-        <a
-        href="https://wa.me/919989368077?text=Hi%20PREMSNAPS.IN%2C%20I%20would%20like%20to%20book%20my%20wedding."
-        target="_blank"
-        class="nav-talk">
-
-            Let's Talk
-
-        </a>
-
+    <div class="gallery-grid">
+      <div class="photo-card wide" data-aos="zoom-in">
+        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop" alt="Highlights 1">
+      </div>
+      <div class="photo-card" data-aos="zoom-in" data-aos-delay="100">
+        <img src="https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?q=80&w=800&auto=format&fit=crop" alt="Highlights 2">
+      </div>
+      <div class="photo-card" data-aos="zoom-in">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop" alt="Highlights 3">
+      </div>
+      <div class="photo-card wide" data-aos="zoom-in" data-aos-delay="100">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop" alt="Highlights 4">
+      </div>
     </div>
+  </section>
 
-</nav>
-
-
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
-<header
-class="hero"
-id="home">
-
-
-    <div
-    class="hero-photo"
-    id="heroPhoto">
-    </div>
-
-
-    <div
-    class="hero-overlay">
-    </div>
-
-
-    <div class="hero-content">
-
-
-        <div class="eyebrow">
-
-            Wedding Photography & Films
-
-        </div>
-
-
-        <h1 class="hero-title">
-
-            <span class="hero-line">
-                Book your wedding.
-            </span>
-
-            <span class="hero-line">
-                Get <i class="free">Free</i> Pre-Wedding.
-            </span>
-
-        </h1>
-
-
-        <div class="hero-bottom">
-
-
-            <div class="hero-description">
-
-                Honest photographs.<br>
-
-                Cinematic films.<br>
-
-                <span>
-                    Memories that stay.
-                </span>
-
-            </div>
-
-
-            <a
-            href="#highlights"
-            class="explore">
-
-                Explore Highlights&nbsp; ↗
-
-            </a>
-
-
-        </div>
-
-    </div>
-
-
-    <div class="scroll">
-
-        <span>
-            SCROLL
-        </span>
-
-        <div class="scroll-line"></div>
-
-    </div>
-
-</header>
-
-
-
-<!-- =====================================================
-     HIGHLIGHTS
-===================================================== -->
-
-<section
-class="highlights"
-id="highlights">
-
-
-    <div class="section-heading">
-
-
-        <div>
-
-            <div class="section-label">
-                Selected Moments
-            </div>
-
-
-            <h2 class="section-title">
-
-                Wedding
-                <em>Highlights.</em>
-
-            </h2>
-
-        </div>
-
-
-        <div class="section-label">
-
-            PREMSNAPS.IN
-
-        </div>
-
-
-    </div>
-
-
-    <div
-    class="gallery"
-    id="gallery">
-
-        <div class="gallery-message">
-
-            Loading wedding highlights...
-
-        </div>
-
-    </div>
-
-
-    <div
-    class="load-more-wrap"
-    id="loadMoreWrap"
-    style="display:none;">
-
-        <button
-        class="load-more"
-        id="loadMore">
-
-            Load More Photos ↓
-
-        </button>
-
-
-        <div class="gallery-note">
-
-            All photos are loaded from our Google Drive.
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     CONTACT
-===================================================== -->
-
-<section
-class="contact"
-id="contact">
-
-
-    <div class="contact-glow">
-    </div>
-
-
-    <div class="contact-content">
-
-
-        <div class="contact-label">
-
-            Let's create something beautiful
-
-        </div>
-
-
-        <h2 class="contact-title">
-
-            Your story.<br>
-
-            <em>Let's capture it.</em>
-
-        </h2>
-
-
-        <p class="contact-text">
-
-            Planning your wedding?
-
-            Let's talk about your date,
-            your vision and the moments
-            that matter most.
-
-            Your memories deserve
-            to be beautifully preserved.
-
-        </p>
-
-
-        <a
-        href="https://wa.me/919989368077?text=Hi%20PREMSNAPS.IN%2C%20I%20am interested in your wedding photography packages."
-        target="_blank"
-        class="whatsapp-button">
-
-
-            <svg
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-
-                <path
-                d="M16 3C8.82 3 3 8.82 3 16C3 18.29 3.59 20.44 4.62 22.31L3 29L9.85 27.42C11.68 28.43 13.79 29 16 29C23.18 29 29 23.18 29 16C29 8.82 23.18 3 16 3Z"
-                stroke="currentColor"
-                stroke-width="2"/>
-
-                <path
-                d="M11.5 10.5C11.8 10.1 12.15 10.1 12.5 10.15C12.8 10.2 13.15 10.25 13.4 10.9L14.25 13C14.35 13.3 14.3 13.55 14.1 13.8L13.25 14.75C13.05 15 13.05 15.25 13.25 15.55C13.8 16.55 14.65 17.35 15.6 17.95C15.9 18.15 16.15 18.15 16.4 17.9L17.35 16.95C17.6 16.7 17.85 16.65 18.15 16.8L20.25 17.8C20.55 17.95 20.7 18.1 20.7 18.45C20.65 19.35 20.2 20.1 19.45 20.55C18.85 20.9 18.1 20.9 17.4 20.7C15.65 20.2 14.05 19.25 12.7 17.95C11.35 16.6 11.35 16.6 10.05 13.25C9.7 12.55 9.7 11.8 10.05 11.2C10.4 10.65 10.9 10.4 11.5 10.5Z"
-                fill="currentColor"/>
-
-            </svg>
-
-
-            WhatsApp Us
-
-        </a>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer>
-
-    <div class="footer-logo">
-        PREMSNAPS.IN
-    </div>
-
+  <section class="contact-cta" id="contact" data-aos="fade-up">
     <div>
-        WEDDING PHOTOGRAPHY & FILMS
+      <p class="tagline">Let's Create Something Beautiful</p>
+      <h2>Your story. <br><em>Let's capture it.</em></h2>
     </div>
-
+    
     <div>
-        © 2026 PREMSNAPS.IN
+      <a href="https://wa.me/?text=Hi%20Prem,%20I'm%20interested%20in%20wedding%20photography%20shoot." 
+         target="_blank" 
+         class="whatsapp-btn">
+        <i class="fa-brands fa-whatsapp fa-xl"></i> Whatsapp Us
+      </a>
     </div>
-
-</footer>
-
-
-
-<!-- =====================================================
-     FLOATING WHATSAPP
-===================================================== -->
-
-<a
-href="https://wa.me/919989368077?text=Hi%20PREMSNAPS.IN%2C%20I%20am interested in booking your wedding photography."
-target="_blank"
-class="floating-whatsapp"
-aria-label="WhatsApp">
-
-
-    <svg
-    viewBox="0 0 32 32"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg">
-
-        <path
-        d="M16 3C8.82 3 3 8.82 3 16C3 18.29 3.59 20.44 4.62 22.31L3 29L9.85 27.42C11.68 28.43 13.79 29 16 29C23.18 29 29 23.18 29 16C29 8.82 23.18 3 16 3Z"
-        stroke="white"
-        stroke-width="2"/>
-
-        <path
-        d="M11.5 10.5C11.8 10.1 12.15 10.1 12.5 10.15C12.8 10.2 13.15 10.25 13.4 10.9L14.25 13C14.35 13.3 14.3 13.55 14.1 13.8L13.25 14.75C13.05 15 13.05 15.25 13.25 15.55C13.8 16.55 14.65 17.35 15.6 17.95C15.9 18.15 16.15 18.15 16.4 17.9L17.35 16.95C17.6 16.7 17.85 16.65 18.15 16.8L20.25 17.8C20.55 17.95 20.7 18.1 20.7 18.45 20.65 19.35 20.2 20.1 19.45 20.55C18.85 20.9 18.1 20.9 17.4 20.7C15.65 20.2 14.05 19.25 12.7 17.95C11.35 16.6 10.4 15.05 9.9 13.25C9.7 12.55 9.7 11.8 10.05 11.2C10.4 10.65 10.9 10.4 11.5 10.5Z"
-        fill="white"/>
-
-    </svg>
-
-</a>
-
-
-
-<script>
-
-/* =====================================================
-   GOOGLE DRIVE CONFIG
-===================================================== */
-
-
-/*
-   IMPORTANT:
-   Paste your existing Google Drive API key here.
-*/
-
-const DRIVE_API_KEY =
-"PASTE_YOUR_API_KEY_HERE";
-
-
-/*
-   YOUR CURRENT GOOGLE DRIVE FOLDER
-
-   Few highlights
-*/
-
-const DRIVE_FOLDER_ID =
-"1JzHGSQBVje1kyPqAprXwDutyKnt1lYRi";
-
-
-/* =====================================================
-   DRIVE FILES
-===================================================== */
-
-async function getDriveFiles(){
-
-    const query =
-        `'${DRIVE_FOLDER_ID}' in parents and trashed=false`;
-
-
-    const url =
-        "https://www.googleapis.com/drive/v3/files?" +
-
-        "q=" +
-        encodeURIComponent(query) +
-
-        "&pageSize=1000" +
-
-        "&fields=files(id,name,mimeType,createdTime)" +
-
-        "&orderBy=createdTime" +
-
-        "&key=" +
-        DRIVE_API_KEY;
-
-
-    const response =
-        await fetch(url);
-
-
-    if(!response.ok){
-
-        const errorText =
-            await response.text();
-
-        throw new Error(
-            "Google Drive API " +
-            response.status +
-            ": " +
-            errorText
-        );
-
-    }
-
-
-    const data =
-        await response.json();
-
-
-    return data.files || [];
-
-}
-
-
-/* =====================================================
-   IMAGE URL
-===================================================== */
-
-function getImageURL(fileId){
-
-    return (
-        "https://drive.google.com/thumbnail?id=" +
-        fileId +
-        "&sz=w2000"
-    );
-
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-function loadHero(mainPhoto){
-
-    if(!mainPhoto){
-
-        console.warn(
-            "Main Photo not found"
-        );
-
-        return;
-
-    }
-
-
-    const hero =
-        document.getElementById(
-            "heroPhoto"
-        );
-
-
-    hero.style.backgroundImage =
-        `url("${getImageURL(mainPhoto.id)}")`;
-
-
-    console.log(
-        "Hero loaded:",
-        mainPhoto.name
-    );
-
-}
-
-
-/* =====================================================
-   CREATE PHOTO
-===================================================== */
-
-function createPhoto(file,index){
-
-    const item =
-        document.createElement(
-            "div"
-        );
-
-
-    item.className =
-        "gallery-item";
-
-
-    item.innerHTML = `
-
-        <span class="photo-number">
-
-            ${String(index + 1).padStart(2,"0")}
-
-        </span>
-
-
-        <img
-            src="${getImageURL(file.id)}"
-            alt="${file.name}"
-            loading="lazy"
-        >
-
-
-        <span class="photo-name">
-
-            ${file.name}
-
-        </span>
-
-    `;
-
-
-    return item;
-
-}
-
-
-/* =====================================================
-   GALLERY STATE
-===================================================== */
-
-let allPhotos = [];
-
-let visiblePhotos = 12;
-
-const PHOTOS_PER_LOAD = 12;
-
-
-/* =====================================================
-   SHOW PHOTOS
-===================================================== */
-
-function showPhotos(){
-
-    const gallery =
-        document.getElementById(
-            "gallery"
-        );
-
-
-    gallery.innerHTML = "";
-
-
-    const photosToShow =
-        allPhotos.slice(
-            0,
-            visiblePhotos
-        );
-
-
-    photosToShow.forEach(
-        (file,index)=>{
-
-            const item =
-                createPhoto(
-                    file,
-                    index
-                );
-
-
-            gallery.appendChild(
-                item
-            );
-
-
-            setTimeout(
-                ()=>{
-                    item.classList.add(
-                        "show"
-                    );
-                },
-                80 + index * 55
-            );
-
-        }
-    );
-
-
-    /*
-       Load More button
-    */
-
-    const loadMoreWrap =
-        document.getElementById(
-            "loadMoreWrap"
-        );
-
-
-    const loadMore =
-        document.getElementById(
-            "loadMore"
-        );
-
-
-    if(
-        visiblePhotos <
-        allPhotos.length
-    ){
-
-        loadMoreWrap.style.display =
-            "block";
-
-        loadMore.textContent =
-            "Load More Photos ↓";
-
-    }
-
-    else{
-
-        loadMoreWrap.style.display =
-            "block";
-
-        loadMore.textContent =
-            "All Photos Loaded ✓";
-
-        loadMore.disabled =
-            true;
-
-        loadMore.style.opacity =
-            ".45";
-
-    }
-
-}
-
-
-/* =====================================================
-   LOAD MORE
-===================================================== */
-
-document
-.getElementById("loadMore")
-.addEventListener(
-    "click",
-    ()=>{
-
-        if(
-            visiblePhotos >=
-            allPhotos.length
-        ){
-
-            return;
-
-        }
-
-
-        visiblePhotos +=
-            PHOTOS_PER_LOAD;
-
-
-        showPhotos();
-
-    }
-);
-
-
-/* =====================================================
-   LOAD WEBSITE
-===================================================== */
-
-async function loadWebsite(){
-
-    const gallery =
-        document.getElementById(
-            "gallery"
-        );
-
-
-    try{
-
-        console.log(
-            "PREMSNAPS.IN — Loading Drive..."
-        );
-
-
-        const files =
-            await getDriveFiles();
-
-
-        console.log(
-            "Drive files:",
-            files
-        );
-
-
-        /*
-           Find Main Photo
-        */
-
-        const mainPhoto =
-            files.find(
-                file => {
-
-                    const name =
-                        file.name
-                        .toLowerCase()
-                        .trim();
-
-                    return (
-                        name ===
-                        "main photo.jpg"
-                        ||
-                        name ===
-                        "main photo.jpeg"
-                        ||
-                        name.includes(
-                            "main photo"
-                        )
-                    );
-
-                }
-            );
-
-
-        loadHero(
-            mainPhoto
-        );
-
-
-        /*
-           Only normal web images
-           
-           JPG
-           JPEG
-           PNG
-           WEBP
-           GIF
-           
-           RAW .NEF ignored automatically.
-        */
-
-        allPhotos =
-            files.filter(
-                file => {
-
-                    const mime =
-                        file.mimeType ||
-                        "";
-
-                    const name =
-                        file.name
-                        .toLowerCase();
-
-
-                    const supported =
-                        (
-                            mime ===
-                            "image/jpeg"
-                        )
-                        ||
-                        (
-                            mime ===
-                            "image/png"
-                        )
-                        ||
-                        (
-                            mime ===
-                            "image/webp"
-                        )
-                        ||
-                        (
-                            mime ===
-                            "image/gif"
-                        );
-
-
-                    const isMain =
-                        name.includes(
-                            "main photo"
-                        );
-
-
-                    return (
-                        supported &&
-                        !isMain
-                    );
-
-                }
-            );
-
-
-        console.log(
-            "Gallery photos:",
-            allPhotos.length
-        );
-
-
-        if(
-            !allPhotos.length
-        ){
-
-            gallery.innerHTML = `
-
-                <div class="gallery-message">
-
-                    <div>
-
-                        <strong>
-                            No photos found.
-                        </strong>
-
-                        <br><br>
-
-                        Google Drive folder is
-                        connected, but no supported
-                        JPG / PNG photos were found.
-
-                    </div>
-
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        /*
-           Show first 12
-        */
-
-        showPhotos();
-
-    }
-
-
-    catch(error){
-
-        console.error(
-            "PREMSNAPS.IN ERROR:",
-            error
-        );
-
-
-        gallery.innerHTML = `
-
-            <div class="gallery-message">
-
-                <div>
-
-                    <strong>
-                        Gallery could not load.
-                    </strong>
-
-                    <br><br>
-
-                    Please check your
-                    Google Drive API key.
-
-                    <br><br>
-
-                    F12 → Console
-                    for the exact error.
-
-                </div>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =====================================================
-   PAGE START
-===================================================== */
-
-window.addEventListener(
-    "load",
-    ()=>{
-
-        loadWebsite();
-
-
-        setTimeout(
-            ()=>{
-
-                document
-                .getElementById("loader")
-                .classList.add("hide");
-
-            },
-            900
-        );
-
-    }
-);
-
-</script>
-
+  </section>
+
+  <a href="https://wa.me/?text=Hi%20Prem,%20I%20would%20like%20to%20inquire%20about%20a%20shoot." 
+     target="_blank" 
+     class="floating-wa" 
+     title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <footer>
+    <p>PREMSNAPS.IN</p>
+    <p>WEDDING PHOTOGRAPHY & FILMS</p>
+    <p>© 2026 PREMSNAPS.IN</p>
+  </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      duration: 800,
+      offset: 80
+    });
+  </script>
 </body>
 </html>
