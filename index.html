@@ -1,374 +1,1093 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PREMSNAPS. — Wedding Photography & Films</title>
-  <meta name="description" content="PREMSNAPS. Wedding Photography & Films — cinematic wedding stories crafted with emotion.">
+<title>PREMSNAPS. — Wedding Photography</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<meta name="description" content="PREMSNAPS. Wedding Photography & Films. Honest photographs, cinematic films and timeless wedding memories.">
 
-  <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#080808;
+    color:#fff;
+    font-family:"DM Sans",sans-serif;
+    overflow-x:hidden;
+}
+
+/* =========================
+   LOADER
+========================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:#080808;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:opacity .8s ease, visibility .8s ease;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-logo{
+    font-family:"Playfair Display",serif;
+    font-size:25px;
+    letter-spacing:5px;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:28px 4vw;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,.65),
+        transparent
+    );
+}
+
+.logo{
+    color:white;
+    text-decoration:none;
+    font-family:"Playfair Display",serif;
+    font-size:22px;
+    letter-spacing:4px;
+}
+
+.nav-links{
+    display:flex;
+    gap:35px;
+    align-items:center;
+}
+
+.nav-links a{
+    color:#fff;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    opacity:.75;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    opacity:1;
+}
+
+.nav-whatsapp{
+    border:1px solid rgba(255,255,255,.35);
+    padding:12px 20px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:130px 8vw 80px;
+    overflow:hidden;
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    background:
+        radial-gradient(
+            circle at 70% 45%,
+            rgba(80,80,80,.13),
+            transparent 35%
+        ),
+        linear-gradient(
+            120deg,
+            #050505,
+            #0d0d0d 55%,
+            #050505
+        );
+}
+
+.hero-bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.7),
+            transparent 70%
+        );
+}
+
+.hero-content{
+    max-width:1100px;
+    position:relative;
+}
+
+.eyebrow{
+    font-size:10px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    margin-bottom:30px;
+    color:#aaa;
+    opacity:0;
+    animation:fadeUp 1s .4s forwards;
+}
+
+.hero-title{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(58px,8.5vw,140px);
+    font-weight:400;
+    line-height:.9;
+    letter-spacing:-5px;
+    max-width:1200px;
+}
+
+.hero-title span{
+    display:block;
+    opacity:0;
+    transform:translateY(50px);
+    animation:heroText 1.2s forwards;
+}
+
+.hero-title span:nth-child(1){
+    animation-delay:.5s;
+}
+
+.hero-title span:nth-child(2){
+    animation-delay:.7s;
+}
+
+.free{
+    font-style:italic;
+    color:#d8b477;
+}
+
+.hero-bottom{
+    margin-top:55px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    max-width:1100px;
+    opacity:0;
+    animation:fadeUp 1s 1.2s forwards;
+}
+
+.hero-description{
+    font-size:13px;
+    line-height:1.8;
+    color:#aaa;
+}
+
+.explore{
+    color:white;
+    text-decoration:none;
+    font-size:10px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    border-bottom:1px solid #777;
+    padding-bottom:12px;
+    transition:.3s;
+}
+
+.explore:hover{
+    letter-spacing:4px;
+}
+
+.scroll{
+    position:absolute;
+    right:4vw;
+    bottom:60px;
+    writing-mode:vertical-rl;
+    font-size:9px;
+    letter-spacing:4px;
+    color:#777;
+}
+
+.scroll::after{
+    content:"";
+    display:block;
+    width:1px;
+    height:55px;
+    background:#777;
+    margin:15px auto 0;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+    padding:130px 6vw;
+}
+
+.section-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:65px;
+}
+
+.section-label{
+    font-size:10px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:#888;
+    margin-bottom:15px;
+}
+
+.section-title{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(45px,6vw,90px);
+    font-weight:400;
+    line-height:.95;
+}
+
+.section-title em{
+    color:#d8b477;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery-section{
+    background:#0a0a0a;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:14px;
+}
+
+.photo{
+    position:relative;
+    overflow:hidden;
+    background:#151515;
+    min-height:420px;
+    opacity:0;
+    transform:translateY(60px);
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.photo.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.photo:nth-child(1){
+    grid-column:span 7;
+}
+
+.photo:nth-child(2){
+    grid-column:span 5;
+}
+
+.photo:nth-child(3){
+    grid-column:span 5;
+}
+
+.photo:nth-child(4){
+    grid-column:span 7;
+}
+
+.photo:nth-child(5){
+    grid-column:span 4;
+}
+
+.photo:nth-child(6){
+    grid-column:span 8;
+}
+
+.photo:nth-child(7){
+    grid-column:span 8;
+}
+
+.photo:nth-child(8){
+    grid-column:span 4;
+}
+
+.photo img{
+    width:100%;
+    height:100%;
+    min-height:420px;
+    object-fit:cover;
+    display:block;
+    transition:
+        transform 1.2s cubic-bezier(.2,.7,.2,1),
+        filter .6s ease;
+}
+
+.photo:hover img{
+    transform:scale(1.07);
+    filter:brightness(.75);
+}
+
+.photo-number{
+    position:absolute;
+    top:20px;
+    left:20px;
+    font-size:9px;
+    letter-spacing:2px;
+    background:rgba(0,0,0,.4);
+    padding:8px 10px;
+    backdrop-filter:blur(8px);
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    min-height:75vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.contact::before{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(216,180,119,.08),
+        transparent 65%
+    );
+}
+
+.contact-content{
+    position:relative;
+    z-index:2;
+    max-width:900px;
+}
+
+.contact-small{
+    color:#999;
+    font-size:10px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    margin-bottom:25px;
+}
+
+.contact-title{
+    font-family:"Playfair Display",serif;
+    font-size:clamp(55px,8vw,120px);
+    line-height:.95;
+    font-weight:400;
+}
+
+.contact-title em{
+    color:#d8b477;
+}
+
+.contact-text{
+    margin:35px auto;
+    color:#999;
+    max-width:500px;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.whatsapp-button{
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    padding:17px 30px;
+    border:1px solid rgba(255,255,255,.4);
+    color:white;
+    text-decoration:none;
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    transition:.4s;
+}
+
+.whatsapp-button:hover{
+    background:#25D366;
+    border-color:#25D366;
+    transform:translateY(-4px);
+}
+
+.whatsapp-icon{
+    font-size:19px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:35px 6vw;
+    border-top:1px solid rgba(255,255,255,.1);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#666;
+    font-size:10px;
+    letter-spacing:1px;
+}
+
+.footer-logo{
+    font-family:"Playfair Display",serif;
+    color:#fff;
+    letter-spacing:3px;
+}
+
+/* =========================
+   FLOATING WHATSAPP
+========================= */
+
+.floating-whatsapp{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#25D366;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:27px;
+    z-index:999;
+    box-shadow:0 8px 30px rgba(0,0,0,.4);
+    transition:.3s;
+}
+
+.floating-whatsapp:hover{
+    transform:scale(1.1);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes heroText{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+    .navbar{
+        padding:22px 5vw;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        padding:130px 6vw 80px;
+        min-height:100svh;
+    }
+
+    .hero-title{
+        font-size:clamp(52px,15vw,85px);
+        letter-spacing:-3px;
+        line-height:.92;
+    }
+
+    .hero-bottom{
+        display:block;
+        margin-top:45px;
+    }
+
+    .explore{
+        display:inline-block;
+        margin-top:30px;
+    }
+
+    .scroll{
+        display:none;
+    }
+
+    section{
+        padding:90px 5vw;
+    }
+
+    .section-top{
+        margin-bottom:40px;
+    }
+
+    .section-title{
+        font-size:52px;
+    }
+
+    .gallery{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:7px;
+    }
+
+    .photo,
+    .photo:nth-child(n){
+        grid-column:span 1;
+        min-height:250px;
+    }
+
+    .photo:nth-child(3n){
+        grid-column:span 2;
+    }
+
+    .photo img{
+        min-height:250px;
+    }
+
+    .contact{
+        min-height:70vh;
+    }
+
+    .contact-title{
+        font-size:58px;
+    }
+
+    .contact-text{
+        font-size:13px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
+}
+
+</style>
 </head>
+
 
 <body>
 
-  <!-- PAGE LOADER -->
-  <div class="page-loader">
+<!-- LOADER -->
+
+<div class="loader" id="loader">
     <div class="loader-logo">PREMSNAPS.</div>
-  </div>
+</div>
 
-  <!-- NAVIGATION -->
-  <header class="site-header">
-    <a href="index.html" class="logo">PREMSNAPS<span>.</span></a>
 
-    <nav class="desktop-nav">
-      <a href="index.html" class="active">HOME</a>
-      <a href="about.html">ABOUT</a>
-      <a href="photos.html">PHOTOS</a>
-      <a href="films.html">FILMS</a>
-      <a href="services.html">SERVICES</a>
-      <a href="quote.html">QUOTE</a>
-    </nav>
+<!-- NAVIGATION -->
 
-    <a href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20would%20like%20to%20know%20about%20your%20wedding%20packages." class="nav-contact" target="_blank">
-      LET'S TALK
+<nav class="navbar">
+
+    <a href="#" class="logo">
+        PREMSNAPS.
     </a>
 
-    <button class="menu-button" aria-label="Open menu">
-      <span></span>
-      <span></span>
-    </button>
-  </header>
+    <div class="nav-links">
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu">
-    <a href="index.html">HOME</a>
-    <a href="about.html">ABOUT</a>
-    <a href="photos.html">PHOTOS</a>
-    <a href="films.html">FILMS</a>
-    <a href="services.html">SERVICES</a>
-    <a href="quote.html">QUOTE</a>
+        <a href="#home">Home</a>
 
-    <a
-      href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20would%20like%20to%20know%20about%20your%20wedding%20packages."
-      target="_blank"
-      class="mobile-whatsapp">
-      WHATSAPP →
-    </a>
-  </div>
+        <a href="#highlights">Highlights</a>
 
-  <main>
+        <a href="#contact">Contact</a>
 
-    <!-- HERO -->
-    <section class="hero">
+        <a
+            href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20would%20like%20to%20book%20my%20wedding."
+            target="_blank"
+            class="nav-whatsapp"
+        >
+            Let's Talk
+        </a>
 
-      <div class="hero-image-wrap">
-        <img
-          id="hero-image"
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2200&q=90"
-          alt="Wedding couple">
-      </div>
+    </div>
 
-      <div class="hero-overlay"></div>
+</nav>
 
-      <div class="hero-content">
 
-        <div class="eyebrow reveal">
-          WEDDING PHOTOGRAPHY & FILMS
+<!-- HERO -->
+
+<header class="hero" id="home">
+
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            Wedding Photography & Films
         </div>
 
         <h1 class="hero-title">
-          <span class="reveal-line">Your day.</span>
-          <span class="reveal-line">Your people.</span>
-          <span class="reveal-line italic">Your story.</span>
+
+            <span>
+                Book your wedding.
+            </span>
+
+            <span>
+                Get <i class="free">Free</i> Pre-Wedding.
+            </span>
+
         </h1>
 
-        <div class="hero-bottom reveal">
-          <p>
-            Honest photographs.<br>
-            Cinematic films.<br>
-            Memories that stay.
-          </p>
 
-          <a href="photos.html" class="hero-link">
-            EXPLORE STORIES <span>↗</span>
-          </a>
+        <div class="hero-bottom">
+
+            <div class="hero-description">
+
+                Honest photographs.<br>
+                Cinematic films.<br>
+                Memories that stay.
+
+            </div>
+
+            <a href="#highlights" class="explore">
+                Explore Highlights &nbsp; ↗
+            </a>
+
         </div>
 
-      </div>
-
-      <div class="hero-scroll">
-        <span>SCROLL</span>
-        <div class="scroll-line"></div>
-      </div>
-
-    </section>
+    </div>
 
 
-    <!-- INTRO -->
-    <section class="intro section-padding">
+    <div class="scroll">
+        SCROLL
+    </div>
 
-      <div class="section-number">01</div>
-
-      <div class="intro-content">
-
-        <p class="small-label reveal">THE PREMSNAPS APPROACH</p>
-
-        <h2 class="big-heading reveal">
-          We don't just<br>
-          <em>capture weddings.</em><br>
-          We preserve them.
-        </h2>
-
-        <div class="intro-text reveal">
-          <p>
-            The nervous smiles. The loud laughter. Your mother's eyes.
-            Your father's pride. The tiny moments nobody planned.
-          </p>
-
-          <a href="about.html" class="text-link">
-            OUR STORY <span>→</span>
-          </a>
-        </div>
-
-      </div>
-
-    </section>
+</header>
 
 
-    <!-- FEATURED GALLERY -->
-    <section class="featured-gallery">
 
-      <div class="gallery-heading section-padding">
+<!-- HIGHLIGHTS -->
+
+<section class="gallery-section" id="highlights">
+
+    <div class="section-top">
 
         <div>
-          <p class="small-label">02 — SELECTED STORIES</p>
-          <h2 class="section-title">
-            Moments<br>
-            <em>in motion.</em>
-          </h2>
+
+            <div class="section-label">
+                Selected Moments
+            </div>
+
+            <h2 class="section-title">
+                Wedding <em>Highlights.</em>
+            </h2>
+
         </div>
 
-        <a href="photos.html" class="outline-button">
-          VIEW ALL PHOTOS →
-        </a>
-
-      </div>
-
-      <div class="home-gallery" id="home-gallery">
-
-        <div class="gallery-loading">
-          <span></span>
-          LOADING STORIES
+        <div class="section-label">
+            PREMSNAPS.
         </div>
 
-      </div>
-
-    </section>
+    </div>
 
 
-    <!-- FILM FEATURE -->
-    <section class="film-feature">
+    <div class="gallery" id="gallery">
 
-      <div class="film-background"></div>
+        <!-- Google Drive photos will load here -->
 
-      <div class="film-content">
+    </div>
 
-        <p class="small-label">03 — WEDDING FILMS</p>
+</section>
 
-        <h2>
-          Some moments<br>
-          deserve to be <em>heard.</em>
+
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+    <div class="contact-content">
+
+        <div class="contact-small">
+            Let's create something beautiful
+        </div>
+
+        <h2 class="contact-title">
+            Your story.<br>
+            <em>Let's capture it.</em>
         </h2>
 
-        <p>
-          The vows. The music. The laughter.
-          The voices you never want to forget.
+        <p class="contact-text">
+
+            Planning your wedding?
+            Let's talk about your dates, your vision
+            and the moments that matter most.
+
         </p>
 
-        <a href="films.html" class="light-button">
-          WATCH OUR FILMS ↗
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- SERVICES -->
-    <section class="services-home section-padding">
-
-      <div class="section-number">04</div>
-
-      <div class="services-layout">
-
-        <div>
-          <p class="small-label">WHAT WE DO</p>
-
-          <h2 class="section-title">
-            Made for<br>
-            <em>your story.</em>
-          </h2>
-        </div>
-
-        <div class="service-list">
-
-          <a href="services.html" class="service-item">
-            <span>01</span>
-            <div>
-              <h3>Wedding Photography</h3>
-              <p>Real emotions. Beautiful compositions. Honest storytelling.</p>
-            </div>
-            <strong>↗</strong>
-          </a>
-
-          <a href="services.html" class="service-item">
-            <span>02</span>
-            <div>
-              <h3>Candid & Cinematic</h3>
-              <p>Natural moments transformed into cinematic memories.</p>
-            </div>
-            <strong>↗</strong>
-          </a>
-
-          <a href="services.html" class="service-item">
-            <span>03</span>
-            <div>
-              <h3>Pre-Wedding</h3>
-              <p>Your chemistry, your location, your story.</p>
-            </div>
-            <strong>↗</strong>
-          </a>
-
-          <a href="services.html" class="service-item">
-            <span>04</span>
-            <div>
-              <h3>Wedding Films</h3>
-              <p>Films made to bring the day back to life.</p>
-            </div>
-            <strong>↗</strong>
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- STATEMENT -->
-    <section class="statement">
-
-      <div class="statement-inner">
-
-        <p class="small-label">05 — OUR PHILOSOPHY</p>
-
-        <h2>
-          Your wedding happens once.
-          <br>
-          <em>Your photographs shouldn't feel old.</em>
-        </h2>
-
-      </div>
-
-    </section>
-
-
-    <!-- CTA -->
-    <section class="final-cta">
-
-      <div class="cta-inner">
-
-        <p class="small-label">06 — LET'S CREATE SOMETHING</p>
-
-        <h2>
-          Ready to tell<br>
-          <em>your story?</em>
-        </h2>
 
         <a
-          href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20am%20planning%20my%20wedding%20and%20would%20like%20to%20know%20your%20packages."
-          target="_blank"
-          class="cta-button">
-          START A CONVERSATION ↗
+            href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20would%20like%20to%20know%20more%20about%20your%20wedding%20photography%20packages."
+            target="_blank"
+            class="whatsapp-button"
+        >
+
+            <span class="whatsapp-icon">◉</span>
+
+            WhatsApp Us
+
         </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer class="footer">
-
-    <div class="footer-top">
-
-      <div class="footer-brand">
-        <div class="footer-logo">PREMSNAPS.</div>
-        <p>
-          Wedding photography<br>
-          & cinematic films.
-        </p>
-      </div>
-
-      <div class="footer-links">
-        <a href="index.html">HOME</a>
-        <a href="about.html">ABOUT</a>
-        <a href="photos.html">PHOTOS</a>
-        <a href="films.html">FILMS</a>
-        <a href="services.html">SERVICES</a>
-        <a href="quote.html">QUOTE</a>
-      </div>
-
-      <div class="footer-contact">
-        <p>BOOKINGS & ENQUIRIES</p>
-        <a href="https://wa.me/919989368077" target="_blank">
-          +91 99893 68077
-        </a>
-      </div>
 
     </div>
 
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> PREMSNAPS.</span>
-      <span>MADE FOR LOVE STORIES.</span>
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-logo">
+        PREMSNAPS.
     </div>
 
-  </footer>
+    <div>
+        WEDDING PHOTOGRAPHY & FILMS
+    </div>
+
+    <div>
+        © 2026 PREMSNAPS.
+    </div>
+
+</footer>
 
 
-  <!-- FLOATING WHATSAPP -->
-  <a
-    href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20would%20like%20to%20enquire%20about%20wedding%20photography."
-    class="floating-whatsapp"
+
+<!-- FLOATING WHATSAPP -->
+
+<a
+    href="https://wa.me/919989368077?text=Hi%20PREMSNAPS%2C%20I%20am%20interested%20in%20booking%20my%20wedding."
     target="_blank"
-    aria-label="WhatsApp">
-    <span>WHATSAPP</span>
-    <b>↗</b>
-  </a>
+    class="floating-whatsapp"
+    aria-label="WhatsApp"
+>
+    ☎
+</a>
 
 
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
 
-    <button class="lightbox-close" id="lightbox-close">
-      ×
-    </button>
+<script>
 
-    <img id="lightbox-image" src="" alt="Wedding photograph">
+/* ============================================================
+   GOOGLE DRIVE SETTINGS
+============================================================ */
 
-    <div class="lightbox-caption" id="lightbox-caption"></div>
+const DRIVE_API_KEY = "PASTE_YOUR_API_KEY_HERE";
 
-  </div>
+/*
+   Wedding ROOT folder ID
+*/
+const DRIVE_ROOT_FOLDER_ID =
+"1GhS35bFfeKQNENi81UcZ4WgX-vh2TlNe";
 
 
-  <script src="script.js"></script>
+/* ============================================================
+   GOOGLE DRIVE HELPERS
+============================================================ */
+
+async function findFolder(folderName){
+
+    const query =
+        `'${DRIVE_ROOT_FOLDER_ID}' in parents and ` +
+        `name='${folderName}' and ` +
+        `mimeType='application/vnd.google-apps.folder' and ` +
+        `trashed=false`;
+
+    const url =
+        "https://www.googleapis.com/drive/v3/files?" +
+        "q=" + encodeURIComponent(query) +
+        "&fields=files(id,name)" +
+        "&key=" + DRIVE_API_KEY;
+
+    const response = await fetch(url);
+
+    if(!response.ok){
+
+        throw new Error(
+            "Google Drive API Error: " + response.status
+        );
+
+    }
+
+    const data = await response.json();
+
+    if(!data.files || !data.files.length){
+
+        throw new Error(
+            folderName + " folder not found."
+        );
+
+    }
+
+    return data.files[0].id;
+}
+
+
+/* ============================================================
+   GET HIGHLIGHT PHOTOS
+============================================================ */
+
+async function getPhotos(folderId){
+
+    const query =
+        `'${folderId}' in parents and ` +
+        `mimeType contains 'image/' and ` +
+        `trashed=false`;
+
+    const url =
+        "https://www.googleapis.com/drive/v3/files?" +
+        "q=" + encodeURIComponent(query) +
+        "&orderBy=createdTime desc" +
+        "&pageSize=1000" +
+        "&fields=files(id,name,mimeType)" +
+        "&key=" + DRIVE_API_KEY;
+
+    const response = await fetch(url);
+
+    if(!response.ok){
+
+        throw new Error(
+            "Unable to load photos. API Error " +
+            response.status
+        );
+
+    }
+
+    const data = await response.json();
+
+    return data.files || [];
+}
+
+
+/* ============================================================
+   CREATE PHOTO
+============================================================ */
+
+function createPhoto(file,index){
+
+    const photo = document.createElement("div");
+
+    photo.className = "photo";
+
+    photo.innerHTML = `
+
+        <span class="photo-number">
+            ${String(index + 1).padStart(2,"0")}
+        </span>
+
+        <img
+            src="https://drive.google.com/thumbnail?id=${file.id}&sz=w1800"
+            alt="${file.name}"
+            loading="lazy"
+        >
+
+    `;
+
+    return photo;
+}
+
+
+/* ============================================================
+   LOAD GALLERY
+============================================================ */
+
+async function loadGallery(){
+
+    const gallery =
+        document.getElementById("gallery");
+
+    try{
+
+        /* Find Highlights folder */
+
+        const highlightsFolder =
+            await findFolder("Highlights");
+
+
+        /* Get all images */
+
+        const photos =
+            await getPhotos(highlightsFolder);
+
+
+        if(!photos.length){
+
+            gallery.innerHTML = `
+                <p style="
+                    color:#888;
+                    grid-column:1/-1;
+                    padding:60px 0;
+                ">
+                    No highlight photos found.
+                </p>
+            `;
+
+            return;
+        }
+
+
+        /* Clear */
+
+        gallery.innerHTML = "";
+
+
+        /* Add photos */
+
+        photos.forEach((file,index)=>{
+
+            const photo =
+                createPhoto(file,index);
+
+            gallery.appendChild(photo);
+
+
+            /* Animation */
+
+            setTimeout(()=>{
+
+                photo.classList.add("show");
+
+            },100 + index * 100);
+
+        });
+
+
+    }catch(error){
+
+        console.error(error);
+
+        gallery.innerHTML = `
+
+            <div style="
+                grid-column:1/-1;
+                padding:50px 0;
+                color:#888;
+                line-height:1.8;
+            ">
+
+                <strong style="color:#fff;">
+                    Gallery could not be loaded.
+                </strong>
+
+                <br>
+
+                Please check Google Drive sharing
+                and API key settings.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* ============================================================
+   SCROLL ANIMATION
+============================================================ */
+
+const observer =
+new IntersectionObserver(
+    entries => {
+
+        entries.forEach(entry => {
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add("show");
+
+            }
+
+        });
+
+    },
+    {
+        threshold:.12
+    }
+);
+
+
+/* ============================================================
+   START
+============================================================ */
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("loader")
+            .classList.add("hide");
+
+    },700);
+
+
+    loadGallery();
+
+});
+
+
+</script>
 
 </body>
 </html>
